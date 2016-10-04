@@ -19,7 +19,7 @@ class Provider:
         regions = []                # list of regions impacted by this provider
         population = []             # list of population constraints
 
-    def _init_(self, longCoord, latCoord, radius, fade, defaultRadius, multiplier, regions, population):
+    def _init_(self, longCoord, latCoord, radius, fade, defaultRadius, multiplier, regions, population, address):
         self.longCoord = longCoord
         self.latCoord = latCoord
         self.ru = radius
@@ -27,6 +27,4 @@ class Provider:
         self.fu = fade
         self.regions = regions
         self.population = population
-
-    def addAddress(self, address):
         self.address = address
