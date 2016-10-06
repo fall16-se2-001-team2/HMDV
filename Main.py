@@ -13,7 +13,7 @@ contents = '''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <head>
   <meta content="text/html; charset=ISO-8859-1"
  http-equiv="content-type">
-  <title>Resource Coverage Explorer</title>
+  <title>Resource Map Research Tool</title>
 </head>
 <body>
 <h2>Workstation</h2>
@@ -22,11 +22,11 @@ contents = '''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 '''
 
 def main():
-    sqlite_file = 'research.sqlite'    # name of the sqlite database file
+    sqlite_file = 'research.sqlite'     # name of the sqlite database file
     cursor = initializeDB(sqlite_file)  #cursor is pointer to db connection
     p = Provider.fromDB(cursor)         #p -> array of providers
     queryDB(cursor)
-    browseLocal(contents)
+    #browseLocal(contents)              #display webpage
     cursor.close()
 def initializeDB(sqlite_file):
     # Connecting to the database file

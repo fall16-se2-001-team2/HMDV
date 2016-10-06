@@ -1,6 +1,10 @@
+#--------------------------------------------------------------------------
+#Surface maps a discrete set of pixels to a continuous Map object
+#--------------------------------------------------------------------------
 import math
+import numpy as np
 class Surface:
-    delta = .001                                                    #distance to sample the statistical surface
+    delta = 0.0                                                     #distance to sample the statistical surface
                                                                     #  this needs to be determined by the ratio of the represented geographical region to the pixel resolution
     zValues = [[]]                                                  # height of the map for the set of discrete sample points
 
@@ -16,7 +20,7 @@ class Surface:
 
     #--------------------------------------------
     #discretize()
-    #sample the surface for each pixel
+    #sample the map for each pixel
     #inputs: (longitudal width, latitudal height
     #--------------------------------------------
     def discretize(self):

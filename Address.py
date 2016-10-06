@@ -1,4 +1,6 @@
-#address contains the "throwaway" part of the Provider class.
+# --------------------------------------------------------------------------
+# address contains the "throwaway" part of the Provider class
+# --------------------------------------------------------------------------
 class Address:
     name = ""
     address = ""
@@ -7,7 +9,7 @@ class Address:
     state = ""
     zip = ""
     eligibility = ""
-
+#Address(name:string, address:string, address2:string, city:string, state:string, zip:string, eligibility:string, isMobile:boolean):void
     def __init__(self,name, address, address2, city, state,zip, eligibility):
         name = name
         address = address
