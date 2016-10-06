@@ -1,3 +1,6 @@
+#--------------------------------------------------------------------------
+#Render takes an array of pixels and modifies them to depict the final coverage output layer.
+#--------------------------------------------------------------------------
 import numpy as np
 import Map
 class Render:

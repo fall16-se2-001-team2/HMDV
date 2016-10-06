@@ -1,3 +1,6 @@
+#--------------------------------------------------------------------------
+#Surface maps a discrete set of pixels to a continuous Map object
+#--------------------------------------------------------------------------
 import math
 import numpy as np
 class Surface:

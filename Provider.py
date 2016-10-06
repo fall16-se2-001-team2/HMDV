@@ -8,7 +8,7 @@ class Provider:
     rd = 0.0                        #default radius from resourceType
     regions = []                    #list of pointers to regions impacted by this provider
     population = []                 #list of population constraints
-
+    _isMobile = False                #boolean identifying if the provider offers mobile service
     def _init_ (self):
         address = Address()
         longCoord = 0.0
@@ -19,7 +19,7 @@ class Provider:
         regions = []                # list of regions impacted by this provider
         population = []             # list of population constraints
 
-    def _init_(self, longCoord, latCoord, radius, fade, defaultRadius, multiplier, regions, population, address):
+    def _init_(self, longCoord, latCoord, radius, fade, defaultRadius, multiplier, regions, population, isMobile, address):
         self.longCoord = longCoord
         self.latCoord = latCoord
         self.ru = radius
@@ -28,3 +28,4 @@ class Provider:
         self.regions = regions
         self.population = population
         self.address = address
+        self.isMobile = isMobile
