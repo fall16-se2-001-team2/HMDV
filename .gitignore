@@ -1,8 +1,4 @@
-.idea/misc.xml
-.idea/modules.xml
-.idea/research.iml
-.idea/workspace.xml
+.idea
 idea/vcs.xml
-__pycache__/Parse.cpython-35.pyc
-__pycache__/provider.cpython-35.pyc
+__pycache__
 tempBrowseLocal.html
