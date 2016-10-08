@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import sqlite3
-from Parse import Parse
+#from Parse import Parse
 from Provider import Provider
 #import pymysql.cursor
 #import sys
@@ -22,7 +22,8 @@ contents = '''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 '''
 
 def main():
-    sqlite_file = 'research.sqlite'     # name of the sqlite database file
+	Provider.toCoordinates("175 5th Avenue NYC")
+    '''sqlite_file = 'research.sqlite'     # name of the sqlite database file
     cursor = initializeDB(sqlite_file)  #cursor is pointer to db connection
     p = Provider.fromDB(cursor)         #p -> array of providers
     queryDB(cursor)
@@ -41,8 +42,7 @@ def strToFile(text, filename):
     output.close()
 
 def browseLocal(webpageText, filename='tempBrowseLocal.html'):
-    '''Start your webbrowser on a local file containing the text
-    with given filename.'''
+    #Start your webbrowser on a local file containing the text with given filename
     import webbrowser, os.path
     strToFile(webpageText, filename)
     webbrowser.open("file:///" + os.path.abspath(filename)) #elaborated for Mac
@@ -54,5 +54,5 @@ def queryDB(c):
     all_rows = c.fetchall()
     print('1):', all_rows)
     return all_rows
-
+'''
 main()
