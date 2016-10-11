@@ -1,38 +1,30 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-
-import sqlite3
+#import sqlite3
 from Provider import Provider
 import folium
+from folium import plugins
 #from Parse import Parse
 
-contents = '''<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
-<html>
-<head>
-  <meta content="text/html; charset=ISO-8859-1"
- http-equiv="content-type">
-  <title>Resource Map Research Tool</title>
-</head>
-<body>
-<h2>Workstation</h2>
-</body>
-</html>
-'''
-
 def main():
-	providerCoords = Provider.toCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding - print returned coordinates
-	map = folium.Map(location=[36.3134,-82.3534])	#initialize map centered at JC
-	'''The webscraper did not parse this particular provider's address correctly.'''
-	folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
-	map.save('tempBrowseLocal.html')				#save the generated map to html
-	import webbrowser, os.path
-	webbrowser.open("file:///" + os.path.abspath('tempBrowseLocal.html'))  # path elaborated for Mac
-	#sqlite_file = 'research.sqlite'     # name of the sqlite database file
-	#cursor = initializeDB(sqlite_file)  #cursor is pointer to db connection
-	#p = Provider.fromDB(cursor)         #p -> array of providers
-	#queryDB(cursor)
-	#browseLocal(contents)              #display webpage
-	#cursor.close()
+    providerCoords = Provider.toCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
+    map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
+    '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
+    #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
+    map.add_child(plugins.HeatMap([[providerCoords[0], providerCoords[1],500]]))
+
+    '''the following line is an example to place heat points for all providers from pandas'''
+    #map.add_children(plugins.HeatMap([[providerCoords[0], providerCoords[1]] for name, row in morning_rush.iloc[:1000].iterrows()]))
+
+    map.save('tempBrowseLocal.html')				#save the generated map to html
+    import webbrowser, os.path
+    webbrowser.open("file:///" + os.path.abspath('tempBrowseLocal.html'))  # path elaborated for Mac
+    #sqlite_file = 'research.sqlite'     # name of the sqlite database file
+    #cursor = initializeDB(sqlite_file)  #cursor is pointer to db connection
+    #p = Provider.fromDB(cursor)         #p -> array of providers
+    #queryDB(cursor)
+    #browseLocal(contents)              #display webpage
+    #cursor.close()
 
 #------------------------------------------------------------
 #initializeDB(string)
