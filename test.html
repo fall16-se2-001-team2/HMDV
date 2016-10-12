@@ -140,16 +140,18 @@
         <script>
             
         
-            var testData = {
-			  max: 8,
-			  data: [{lat: 36.3177445, lng:-82.3556292, count: 1}]
-			};
+            
 
             var southWest = L.latLng(34, -91);
             var northEast = L.latLng(38, -81);
-            var bounds = L.latLngBounds(southWest, northEast);,
+            var bounds = L.latLngBounds(southWest, northEast);
 
-            var baseLayer = L.tileLayer(
+
+            
+        
+        
+            
+            var tile_layer_336a83d3738e46a7a333c4987f6fdd1f = L.tileLayer(
                 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                 {
                     maxZoom: 18,
@@ -157,7 +159,26 @@
                     attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
                     detectRetina: false
                     }
-                ).addTo(map_6bdc720440f04084a4feadc81181f9a1);
+                )
+
+        
+        
+            
+
+        
+        
+            
+            var heat_map_b1344835082049a3b4c538e176636262 = L.heatLayer(
+                [[36.3177445, -82.3556292, 500]],
+                {
+                    minOpacity: 0.5,
+                    maxZoom: 18,
+                    max: 1.0,
+                    radius: 25,
+                    blur: 15,
+                    gradient: null
+                    })
+                
 
 			var cfg = {
 				// radius should be small ONLY if scaleRadius is true (or small radius is intended)
@@ -180,13 +201,18 @@
 
 
 			//var heatmapLayer = new HeatmapOverlay(cfg);
-			
-			var map_6bdc720440f04084a4feadc81181f9a1 = new L.Map('map-canvas', {
-			  center: new L.LatLng(36.3134,-82.3534),
-			  zoom: 10,
-			  layers: []
-			})
-			
-			heatmapLayer.setData(testData);
+
+
+
+
+				
+            var map_6bdc720440f04084a4feadc81181f9a1 = L.map('map_6bdc720440f04084a4feadc81181f9a1', {
+                                           center:[36.3134,-82.3534],
+                                           zoom: 10,
+                                           maxBounds: bounds,
+                                           layers: [tile_layer_336a83d3738e46a7a333c4987f6fdd1f,heat_map_b1344835082049a3b4c538e176636262],
+                                           crs: L.CRS.EPSG3857
+                                         });       
+        
         </script>
         
