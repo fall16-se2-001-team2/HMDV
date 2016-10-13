@@ -12,6 +12,9 @@
       #all-examples-info { position:absolute; background:white; font-size:16px; padding:20px; bottom:20px; width:350px; line-height:150%; border:1px solid rgba(0,0,0,.2);}
     </style>
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+        <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+	<script src="heatmap.js"></script>
     <script src="leaflet-heatmap.js"></script>
     <script src="gmaps-heatmap.js"></script>
   </head>
@@ -43,7 +46,7 @@
             // if set to false the heatmap uses the global maximum for colorization
             // if activated: uses the data maximum within the current map boundaries 
             //   (there will always be a red spot with useLocalExtremas true)
-            "useLocalExtrema": true,
+            "useLocalExtrema": false,
             // which field name in your data represents the latitude - default "lat"
             latField: 'lat',
             // which field name in your data represents the longitude - default "lng"
