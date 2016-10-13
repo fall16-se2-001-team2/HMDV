@@ -110,7 +110,7 @@
             
         
             
-            <style> #map_6bdc720440f04084a4feadc81181f9a1 {
+            <style> #map {
                 position : relative;
                 width : 100.0%;
                 height: 100.0%;
@@ -122,8 +122,7 @@
         
             
         
-            <script src="https://leaflet.github.io/Leaflet.heat/dist/leaflet-heat.js"></script>
-        
+			<script src="leaflet-heatmap.js"></script>
         
         
         
@@ -132,87 +131,53 @@
             
         
             
-            <div class="folium-map" id="map_6bdc720440f04084a4feadc81181f9a1" ></div>
+            <div class="folium-map" id="map" ></div>
         
         
         
         </body>
-        <script>
-            
-        
-            
+		<script>
+			//https://www.patrick-wied.at/static/heatmapjs/example-heatmap-leaflet.html
+			// don't forget to include leaflet-heatmap.js
+			var testData = {
+			  max: 8,
+			  data: [{lat: 24.6408, lng:46.7728, count: 3},{lat: 50.75, lng:-1.55, count: 1}]
+			};
 
-            var southWest = L.latLng(34, -91);
-            var northEast = L.latLng(38, -81);
-            var bounds = L.latLngBounds(southWest, northEast);
-
-
-            
-        
-        
-            
-            var tile_layer_336a83d3738e46a7a333c4987f6fdd1f = L.tileLayer(
-                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                {
-                    maxZoom: 18,
-                    minZoom: 6,
-                    attribution: 'Data by <a href="http://openstreetmap.org">OpenStreetMap</a>, under <a href="http://www.openstreetmap.org/copyright">ODbL</a>.',
-                    detectRetina: false
-                    }
-                )
-
-        
-        
-            
-
-        
-        
-            
-            var heat_map_b1344835082049a3b4c538e176636262 = L.heatLayer(
-                [[36.3177445, -82.3556292, 500]],
-                {
-                    minOpacity: 0.5,
-                    maxZoom: 18,
-                    max: 1.0,
-                    radius: 25,
-                    blur: 15,
-                    gradient: null
-                    })
-                
+			var baseLayer = L.tileLayer(
+			  'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+				attribution: '...',
+				maxZoom: 18
+			  }
+			);
 
 			var cfg = {
-				// radius should be small ONLY if scaleRadius is true (or small radius is intended)
-				// if scaleRadius is false it will be the constant radius used in pixels
-				"radius": 2,
-				"maxOpacity": .8, 
-				// scales the radius based on map zoom
-				"scaleRadius": false, 
-				// if set to false the heatmap uses the global maximum for colorization
-				// if activated: uses the data maximum within the current map boundaries 
-				//   (there will always be a red spot with useLocalExtremas true)
-				"useLocalExtrema": true,
-				// which field name in your data represents the latitude - default "lat"
-				latField: 'lat',
-				// which field name in your data represents the longitude - default "lng"
-				lngField: 'lng',
-				// which field name in your data represents the data value - default "value"
-				valueField: 'count'
+			  // radius should be small ONLY if scaleRadius is true (or small radius is intended)
+			  // if scaleRadius is false it will be the constant radius used in pixels
+			  "radius": 2,
+			  "maxOpacity": .8, 
+			  // scales the radius based on map zoom
+			  "scaleRadius": true, 
+			  // if set to false the heatmap uses the global maximum for colorization
+			  // if activated: uses the data maximum within the current map boundaries 
+			  //   (there will always be a red spot with useLocalExtremas true)
+			  "useLocalExtrema": true,
+			  // which field name in your data represents the latitude - default "lat"
+			  latField: 'lat',
+			  // which field name in your data represents the longitude - default "lng"
+			  lngField: 'lng',
+			  // which field name in your data represents the data value - default "value"
+			  valueField: 'count'
 			};
 
 
-			//var heatmapLayer = new HeatmapOverlay(cfg);
+			var heatmapLayer = new HeatmapOverlay(cfg);
 
+			var map = new L.Map('map', {
+			  center: new L.LatLng(25.6586, -80.3568),
+			  zoom: 4,
+			  layers: [baseLayer, heatmapLayer]
+			});
 
-
-
-				
-            var map_6bdc720440f04084a4feadc81181f9a1 = L.map('map_6bdc720440f04084a4feadc81181f9a1', {
-                                           center:[36.3134,-82.3534],
-                                           zoom: 10,
-                                           maxBounds: bounds,
-                                           layers: [tile_layer_336a83d3738e46a7a333c4987f6fdd1f,heat_map_b1344835082049a3b4c538e176636262],
-                                           crs: L.CRS.EPSG3857
-                                         });       
-        
-        </script>
+			heatmapLayer.setData(testData);</script>
         
