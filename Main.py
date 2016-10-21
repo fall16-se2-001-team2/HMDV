@@ -5,7 +5,7 @@ from Provider import Provider
 import folium
 from folium import plugins
 #from Parse import Parse
-import Curve
+#import Curve
 def main():
     #providerCoords = Provider.toCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
     #map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
@@ -25,7 +25,10 @@ def main():
     #browseLocal(contents)              #display webpage
     #cursor.close()
 
-    c = Curve()
+    #c = Curve()
+    import PopConstraint
+    p = PopConstraint()
+    p.ageConstraint()
 
 
 #------------------------------------------------------------
