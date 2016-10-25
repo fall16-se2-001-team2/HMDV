@@ -19,6 +19,7 @@ class RegionGroup:
     twoWordCounties         = ["van buren"]
     twoWordCountiesSecond   = ["buren"]
 
+
     def __init__(self):
         self.list = []
 
