@@ -24,10 +24,9 @@ class RegionGroup:
         self.list = []
 
     def append(self, region):
-        #raise IndentationError, "Stop that. It'll be done when it's done."        
-        try:
+        if region in self.twoWordCountiesSecond:
             twoWordCountiesIndex = self.twoWordCountiesSecond.index(region)
-        except ValueError:
+        else:
             twoWordCountiesIndex = -1
         lastRegion = len(self.list)-1
         if twoWordCountiesIndex != -1 and self.list[lastRegion] == self.twoWordCounties[twoWordCountiesIndex].split()[0]:
