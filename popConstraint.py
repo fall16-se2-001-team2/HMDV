@@ -17,6 +17,7 @@ class Segment:
             self.segment[1] = n
 
 class PopConstraint:
+
     string = ""
     def __init__(self, string):
         self.string = string
@@ -33,61 +34,77 @@ class PopConstraint:
             #s -> (m,n) #segment
             #r -> (n,100) #greater than
             #l -> (0,n)  #less than
-            #(m,n) -> s  #defined segment
+            #m,n -> s  #defined segment
             #n -> n      #defined year
-
-        ageTemplates= {'ages of $"': 's',
-                          'senior $': 'r',
-                          'seniors $': 'r',
-                          'elderly': 'r',
-                          'birth $': 'l',       # birth indicates (0,n) age
-                          'age $': 's',
-                          'ages $': 's',
-                          '$ children $': 's',
-                          'adults $': 'r',
-                          '$ grade $': 's',     # need to add 5 to grade number
-                          '$ grades $': 's',    # same here, add 5
-                          'infant': 'l',
-                          'infants': 'l',
-                          'toddler': 'l',
-                          'toddlers': 'l',
-                          'young': '(0,18)',    # maybe not?
-                          'youth': '(2,18)',    # static?
-                          'youths': '(2,18)',   # static?
-                          'pre k': '(0,4)',     # static?
-                          'pre-k': '(0,4)',
-                          'preschool': '4',
-                          'school aged': '(5,18)',
-                          '$ through $': 's',
-                          '$-$': 's',           # possibly need to consider weird spacing
-                          '$ to $': 's',
-                          '$ and $': 's',
-                          '$ and older': 'r',
-                          '$ and under': 'l',   #may be too ambiguous
-                          '$ and younger': 'l',
-                          '$ and up': 'r',      #may be too ambiguous
-                          'up to $': 'l',       #may be too ambiguous
-                          'down to $': 'r',     #may be too ambiguous
-                          '$+': 'r',
-                          'younger than $':'l',
-                          'older than $':'r'
+        '''ageTemplates tries to align with the eligibility string to identify places to look for ages.'''
+        ageTemplates= {
+                        'from $': 's',
+                        'ages of $': 's',
+                        'senior $': 'r',
+                        'seniors $': 'r',
+                        'birth $': 'l',
+                        'age $': 's',
+                        'ages $': 's',          #if we remove useless words like [ of, to, and, than ] then we can eliminate this one
+                        #'$ children $': 's',   #probably not necessary
+                        'adults $': 'r',
+                        '$ grade $': 's',       # need to add 5 to grade number
+                        '$ grades $': 's',      # same here, add 5
+                        '$ through $': 's',
+                        '$ - $': 's',           # possibly need to consider weird spacing
+                        '$ to $': 's',
+                        '$ and $': 's',
+                        '$ and older': 'r',
+                        '$ and under': 'l',     #may be too ambiguous
+                        '$ and younger': 'l',
+                        '$ and up': 'r',        #may be too ambiguous
+                        'up to $': 'l',         #may be too ambiguous
+                        'down to $': 'r',       #may be too ambiguous
+                        '$+': 'r',
+                        'younger than $':'l',
+                        'older than $':'r'
                        }
-        ageIdentifiers = {}#holds the ordered set of words to match
+        translations = {
+                        'retired': '72,100',        #make research variable?
+                        'birth':'0',
+                        'preschool':'4',
+                        'pre-school':'4',
+                        'youth':'2,18',
+                        'youths':'2,18',
+                        'young':'0,18',
+                        'school aged': '5,18',
+                        'pre k': '0,4',
+                        'pre-k': '0,4',
+                        'infant': 'l',
+                        'elderly': 'r',
+                        'infants': 'l',
+                        'toddler': 'l',
+                        'toddlers': 'l'
+                        }
+        timescale = {                           #divisor of preceding numeric translation
+                        'months':'12',
+                        'years':'1'
+                    }
+
+
+
         '''remove the wildcard, leaving only ordered list of words of interest'''
-        for str in enumerate(ageTemplates):
-            words = str.split()
-            for word in words:
-                if word == "$":
-                    word = None
-            ageIdentifiers.append(words)
-        '''search for the phrases in the string, returning those matched'''
-        for word in eligibility.split():
-            for templateWord in enumerate(ageIdentifiers):
-                if word != templateWord
-                    break
+        words = eligibility.split()             #words is list of each word in eligibility string
+        #for i in range(words):                      # i is index into eligibility words
+        for template in ageTemplates:       #template is the current template that we are searching for
+            templateOffset = 0
+            tWords = template.split(' ')    #tWords is list of each word in template
+            '''find the offset of first identifying word in template'''
+            if tWords[0] == '$':            #if the first word is $ then the first identifying word is index = 1
+                templateOffset = 1
+            for i in range(templateOffset,words):
+                if words[i+templateOffset] == tWords[templateOffset]:
+
+                #PopConstraint.parseWildcard(words, i)
+
 
 
         pass
     @staticmethod
-    def parseWildcard (str):
+    def parseWildcard (words, index):
+        word = words[index]
         pass

@@ -26,9 +26,8 @@ def main():
     #cursor.close()
 
     #c = Curve()
-    import PopConstraint
-    p = PopConstraint()
-    p.ageConstraint()
+    from PopConstraint import PopConstraint
+    PopConstraint.ageConstraint("children from 8-14 years old")
 
 
 #------------------------------------------------------------
