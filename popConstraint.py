@@ -1,20 +1,3 @@
-class Segment:
-    segment = [2]
-    def __init__(self):
-        pass
-    def __init__(self,type,m,n=-1):
-        if n == -1:
-            if type == "r":#greater than i.e.(n,100)
-                self.segment[0]=m
-                self.segment[1]= 100
-            elif type == "l":  #less than i.e. (o,n)
-                self.segment[0] = 0
-                self.segment[1] = m
-            else:
-                print ("Error")
-        else:           #line segment [m,n]
-            self.segment[0] = m
-            self.segment[1] = n
 
 class PopConstraint:
 
@@ -60,33 +43,40 @@ class PopConstraint:
                         'up to $': 'l',         #may be too ambiguous
                         'down to $': 'r',       #may be too ambiguous
                         '$+': 'r',
+                        '$yo': 's',             #one specific year -> segment($,$)
                         'younger than $':'l',
                         'older than $':'r'
                        }
+        _infantConstant = '0-4'                 #the age range of a 'child'
+        _elderlyConstant = '78-100'             #the age that considers a person elderly
+        _retiredConstant = '73-100'             #the avg age that a person retires
         translations = {
-                        'retired': '72,100',        #make research variable?
+                        'retired': _retiredConstant,        #make research variable?
                         'birth':'0',
                         'preschool':'4',
                         'pre-school':'4',
-                        'youth':'2,18',
-                        'youths':'2,18',
-                        'young':'0,18',
-                        'school aged': '5,18',
-                        'pre k': '0,4',
-                        'pre-k': '0,4',
-                        'infant': 'l',
-                        'elderly': 'r',
-                        'infants': 'l',
-                        'toddler': 'l',
-                        'toddlers': 'l'
+                        'youth':'2-8',
+                        'youths':'2-18',
+                        'young':'0-18',
+                        'school aged': '5-18',
+                        'pre k': '4yo',             #should this just be 4?
+                        'pre-k': '4yo',
+                        'infant': _infantConstant,
+                        'infants': _infantConstant,
+                        'toddler': _infantConstant,
+                        'toddlers': _infantConstant,
+                        'elderly': _elderlyConstant
                         }
         timescale = {                           #divisor of preceding numeric translation
                         'months':'12',
                         'years':'1'
                     }
 
-
-
+        '''replace translations with text segment'''
+        for word in eligibility.split():
+            for key, value in translations:
+                if word == key:
+                    word = value
         '''remove the wildcard, leaving only ordered list of words of interest'''
         words = eligibility.split()             #words is list of each word in eligibility string
         #for i in range(words):                      # i is index into eligibility words
@@ -97,7 +87,7 @@ class PopConstraint:
             if tWords[0] == '$':            #if the first word is $ then the first identifying word is index = 1
                 templateOffset = 1
             for i in range(templateOffset,words):
-                if words[i+templateOffset] == tWords[templateOffset]:
+                if words[i] == tWords[templateOffset]:
 
                 #PopConstraint.parseWildcard(words, i)
 
