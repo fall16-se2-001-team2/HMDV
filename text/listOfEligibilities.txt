@@ -2,7 +2,7 @@
 
 Eligibility description
 Count: ###
-[Last resoure name with this eligbility]
+[Last resource name with this eligibility]
 
 *************************************************************************************
 
