@@ -80,19 +80,24 @@ class PopConstraint:
                     word = value
         '''remove the wildcard, leaving only ordered list of words of interest'''
 
-        for template in ageTemplates:           #template is the current template that we are searching for
-            templateOffset = 0                  #the offset into the template
-            tWords = template.split(' ')        #tWords is list of each word in template
-            if words.len() == 1:                #if the template only has one word
-                for i in range(words):          # then iteratively move the template over the words list
-                    PopConstraint.tryParseWildcard(words,i,template)#and search for numeric ranges
-                    continue                    #try another template.
+        for template in ageTemplates:               #template is the current template that we are searching for
+            templateOffset = 0                      #the offset into the template
+            tWords = template.split(' ')            #tWords is list of each word in template
+            if words.len() == 1:                    #if the template only has one word
+                for i in range(words):              # then iteratively move the template over the words list
+                    PopConstraint.tryParseWildcard(words,i,template)    #and search for numeric ranges
+                    #continue                        #try another template.
             '''find the offset of first identifying word in template'''
-            if tWords[0] == '$':                #if the first word is $ then the first identifying word is index = 1
-                templateOffset = 1              #skip the first word of eligibility and template
-            for i in range(templateOffset,words):#i indexed loop that places the template over each applicable word
-                if words[i] == tWords[templateOffset]:#if first applicable word matches this word
-                    for j in range(templateOffset,tWords.len()):#then check to see if the rest of the template matches
+            elif tWords[0] == '$':                  #if the first word is $ then the first identifying word is index = 1
+                templateOffset = 1                  #skip the first word of eligibility and template
+            for i in range(templateOffset,words):   #i indexed loop that places the template over each applicable word
+                if words[i] != tWords[templateOffset]:      #if first applicable word doesn't match template
+                    if tWords[templateOffset] != '$':
+                        continue
+                    elif
+
+                elif
+                    for j in range(templateOffset,tWords.len()):  #then check to see if the rest of the template matches
                         if tWords[templateOffset] == '$':
                             templateOffset+=1
                             continue
@@ -111,7 +116,7 @@ class PopConstraint:
         pass
     @staticmethod
     def tryParseWildcard (words, index, template):
-        if template.split(' ').len() == 1:
+        if template.split(' ').len() == 1:              #if the template is one word
 
 
         pass
