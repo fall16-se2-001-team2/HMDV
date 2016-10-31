@@ -228,21 +228,6 @@ def pageScrape( url):
     
     #append to json file  
     #to use, change the first open parameter with location of JSON
-    with open('C:/Users/Matthew/resource.json', 'a') as f:
+    with open('../data/resource.json', 'a') as f:
         json.dump(resourceData, f)
         f.write(os.linesep)
-    
-    
-    
-    
-    
-    
-        
-    
-    
-    
-    
-    
-
-
-

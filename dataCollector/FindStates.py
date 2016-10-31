@@ -28,4 +28,3 @@ for record in countydata['features']:
         with open('Counties_TN.json', 'a') as f:
             json.dump(countyData, f)
             f.write(os.linesep)
-

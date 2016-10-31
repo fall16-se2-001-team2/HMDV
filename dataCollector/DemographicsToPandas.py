@@ -34,8 +34,6 @@ for poly in coords:
     #this is now a shapely Polygon object which GeoPandas uses
     geometry.append(g2)
 
-
-
 #create a DataFrame for pandas
 CountyFrame = pd.DataFrame(data, columns=columns)
 #print the head of the DataFrame to see if it works
