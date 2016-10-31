@@ -1,13 +1,17 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #import sqlite3
+import sys  #qtPy dependencies
+from PyQt4.QtWebKit import QWebView
+from PyQt4.QtGui import QApplication
+from PyQt4.QtCore import QUrl
 from Provider import Provider
-import folium
-from folium import plugins
+#import folium      #tag for removal
+#from folium import plugins     #tag for removal
 #from Parse import Parse
 #import Curve
 def main():
-    #providerCoords = Provider.toCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
+    providerCoords = Provider.toCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
     #map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
     '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
@@ -26,10 +30,20 @@ def main():
     #cursor.close()
 
     #c = Curve()
-    from PopConstraint import PopConstraint
-    PopConstraint.ageConstraint("children from 8-14 years old")
+    #from PopConstraint import PopConstraint
+    #PopConstraint.ageConstraint("children from 8-14 years old")
+
+    #pyqt GUI stuff starts here
+    app = QApplication(sys.argv)
 
 
+
+    browser = QWebView()
+    browser.load(QUrl("tempBrowseLocal.html"))
+    browser.show()
+
+    app.exec_()
+    #end pyqt GUI stuff
 #------------------------------------------------------------
 #initializeDB(string)
 #Purpose: Connect to the database file and return the cursor

@@ -73,12 +73,12 @@ class PopConstraint:
         }
 
         words = eligibility.split()             #words is list of each word in eligibility string
-        '''replace translations with text segment'''
+        #replace translations with text segment
         for word in words:
             for key, value in translations:
                 if word == key:
                     word = value
-        '''remove the wildcard, leaving only ordered list of words of interest'''
+        #remove the wildcard, leaving only ordered list of words of interest
 
         for template in ageTemplates:               #template is the current template that we are searching for
             templateOffset = 0                      #the offset into the template
@@ -87,23 +87,23 @@ class PopConstraint:
                 for i in range(words):              # then iteratively move the template over the words list
                     PopConstraint.tryParseWildcard(words,i,template)    #and search for numeric ranges
                     #continue                        #try another template.
-            '''find the offset of first identifying word in template'''
+            #find the offset of first identifying word in template
             elif tWords[0] == '$':                  #if the first word is $ then the first identifying word is index = 1
                 templateOffset = 1                  #skip the first word of eligibility and template
             for i in range(templateOffset,words):   #i indexed loop that places the template over each applicable word
                 if words[i] != tWords[templateOffset]:      #if first applicable word doesn't match template
                     if tWords[templateOffset] != '$':
                         continue
-                    elif
+                    #elif
 
-                elif
+                else:
                     for j in range(templateOffset,tWords.len()):  #then check to see if the rest of the template matches
                         if tWords[templateOffset] == '$':
                             templateOffset+=1
                             continue
-                        elif
+                        else:
                             break
-                    if templateOffset == tWords
+
 
                     value = ageTemplates.get(tWords[templateOffset])
 
@@ -117,6 +117,3 @@ class PopConstraint:
     @staticmethod
     def tryParseWildcard (words, index, template):
         if template.split(' ').len() == 1:              #if the template is one word
-
-
-        pass
