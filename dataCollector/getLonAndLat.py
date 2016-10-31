@@ -15,17 +15,13 @@ f.close()
 
 #the file name will need to be changed to wherever you want it to go
 li = codecs.open('../data/resourceLatLon.json', 'a', 'utf-8')
-li.write('[')
 for resource in resourceList:
-    #try:
+    try:
         latlon = Provider.Provider.toCoordinates(resource['address'])
         resource['latitude'] = latlon[0]
         resource['longitude'] = latlon[1]
         json.dump(resource,li)
         li.write(',\n')
-    #except:
-   #     print(resource['name'])
-    #    li.write('Character encoding error.\n\n')
-    #    li.write(',\n')
-li.write(']')
+    except:
+        li.write('{}]]')
 li.close()
