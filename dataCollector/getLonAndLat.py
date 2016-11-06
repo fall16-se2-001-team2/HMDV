@@ -17,7 +17,7 @@ f.close()
 li = codecs.open('../data/resourceLatLon.json', 'a', 'utf-8')
 for resource in resourceList:
     try:
-        latlon = Provider.Provider.toCoordinates(resource['address'])
+        latlon = Provider.Provider.addressToCoordinates(resource['address'])
         resource['latitude'] = latlon[0]
         resource['longitude'] = latlon[1]
         json.dump(resource,li)

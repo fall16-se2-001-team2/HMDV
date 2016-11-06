@@ -28,13 +28,15 @@ class Map:#(object): #uncomment this to make Map a superclass
         self.providers.append(provider)
 
         #check the geocoding when adding a provider to a map
-        if provider.toCoordinates() iw None:
 
-        pass
-    def toCoords (self):
+    def toJavaScriptData (self):
         #write coordinates
         strOut = "["
 
-            for provider in self.providers:
-
-                strOut += ","
+        for i, provider in self.providers:
+            i += 1                          #increment counter (1-based)
+            strOut += provider.__repr__()   #add the data structure to the string
+            if i == self.providers.count(): #if this is the last provider
+                break                       #dont add a comma after
+            strOut += ","                   #else add a comma
+        strOut += "]"

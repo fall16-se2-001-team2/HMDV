@@ -4,30 +4,25 @@ import time
 class Parse:
     defaultRadius = 10.0
     defaultMulti = 1.0
-    timestr = ""
-    map
-    def _init_(self):
+    html = ""
+    def _init_(self,templateFile):
         defaultRadius=10.0
         defaultMulti=1.0
+        f = open(templateFile, 'r') #open the leaflet template
+        html = f.read()
+        f.close()
 
-        #set the timestamp to identify the output files
-        initTimestamp = time.strftime("%H%M%S")
-        print ("initialize parser:" + timestr)
 
-    @staticmethod
-    def fromDB (dbCursor):#make static
-        providers = []
-        providers.append(Provider())
-        providers.append(Provider())
-        providers.append(Provider())
 
-        return providers
-
-    def toOutFile (map):
+    def toOutFile (self,dataPoints):
         import json
-        timestr = time.strftime("%Y%m%d-%H%M%S")
+        timestr = time.strftime("%Y%m%d-%H%M%S")        #set the timestamp to identify the output files
 
+        self.html.replace("<$></$>",dataPoints)
         #write the timestamp, research vars, demographics files, to the database for future reference.
 
-        with open(timestr+'.json', 'w') as fp:
-            json.dump(self.map.coords, fp)
+        outFile = open(timestr+".html", "w")            #write the html file with dataPoints
+        outFile.write(self.html)
+        outFile.close()
+        #with open(timestr+'.json', 'w') as fp:
+        #    json.dump(self.map.coords, fp)

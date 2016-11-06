@@ -35,7 +35,7 @@ class Ui_Dialog(object):
         self.MapView.setGeometry(QtCore.QRect(10, 40, 701, 371))
 
         #Absolute file path to use for now, make sure to escape backslahes
-        self.MapView.setUrl(QtCore.QUrl(("file:///C:\\Users\\Ryan\\Documents\\College\\Comp Sci\\Software Engineering 2\\HMDV\\leaflet\\index.html")))
+        self.MapView.setUrl(QtCore.QUrl(("tempBrowseLocal.html")))
         self.MapView.setObjectName(_fromUtf8("MapView"))
         self.textEdit = QtGui.QTextEdit(Dialog)
         self.textEdit.setGeometry(QtCore.QRect(10, 10, 111, 21))
@@ -80,9 +80,9 @@ class Ui_Dialog(object):
         self.checkBox_4.setText(_translate("Dialog", "Populations", None))
         self.checkBox.setText(_translate("Dialog", "Counties", None))
 
-from PyQt4 import QtWebKit
+    from PyQt4 import QtWebKit
 
-if __name__ == "__main__":
+def start():
     import sys
     app = QtGui.QApplication(sys.argv)
     Dialog = QtGui.QDialog()
@@ -90,4 +90,3 @@ if __name__ == "__main__":
     ui.setupUi(Dialog)
     Dialog.show()
     sys.exit(app.exec_())
-

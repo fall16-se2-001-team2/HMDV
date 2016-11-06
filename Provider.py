@@ -65,7 +65,7 @@ class Provider:
     # outputs: tuple(latitude:float, longitude:float)
     # -------------------------------------------------------------
     @staticmethod
-    def toCoordinates(address):
+    def addressToCoordinates(address):
         from geopy import geocoders
         g = geocoders.GoogleV3()
         place, (lat, lng) = g.geocode(address)
