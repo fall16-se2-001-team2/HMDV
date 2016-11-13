@@ -80,13 +80,13 @@ class Ui_Dialog(object):
         self.checkBox_4.setText(_translate("Dialog", "Populations", None))
         self.checkBox.setText(_translate("Dialog", "Counties", None))
 
-    from PyQt4 import QtWebKit
+from PyQt4 import QtWebKit
 
-def start():
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    Dialog = QtGui.QDialog()
-    ui = Ui_Dialog()
-    ui.setupUi(Dialog)
-    Dialog.show()
-    sys.exit(app.exec_())
+
+import sys
+app = QtGui.QApplication(sys.argv)
+Dialog = QtGui.QDialog()
+ui = Ui_Dialog()
+ui.setupUi(Dialog)
+Dialog.show()
+sys.exit(app.exec_())
