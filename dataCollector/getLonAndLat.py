@@ -6,6 +6,7 @@
 import json
 import codecs
 import Provider
+from geopy import geocoders
 import pandas
 
 #the file name will need to be changed to wherever you have it
@@ -17,9 +18,13 @@ f.close()
 li = codecs.open('../data/resourceLatLon.json', 'a', 'utf-8')
 for resource in resourceList:
     try:
-        latlon = Provider.Provider.addressToCoordinates(resource['address'])
-        resource['latitude'] = latlon[0]
-        resource['longitude'] = latlon[1]
+        latlon = addressToCoordinates(resource['address'])
+        from geopy import geocoders
+
+        g = geocoders.GoogleV3(api_key="AIzaSyBHJYku7O6cGgMNVL3nXo9dPB0EkgMVlXM")
+        place, (lat, lng) = g.geocode(address)      #place is not necessary
+        resource['latitude'] = lat
+        resource['longitude'] = lon
         json.dump(resource,li)
         li.write(',\n')
     except:
