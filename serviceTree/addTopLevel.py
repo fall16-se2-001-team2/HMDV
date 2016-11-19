@@ -35,7 +35,7 @@ for r in resourceList:
                 resourceTops = "Target Demographics"
     r["topLevelServices"] = resourceTops
 
-k = codecs.open('../data/resourceWithTopLevelServices.json','w','utf-8')
+k = codecs.open('../data/resourceWithTopLevelName.json','w','utf-8')
 k.write("[")
 for r in resourceList:
     json.dump(r,k)
