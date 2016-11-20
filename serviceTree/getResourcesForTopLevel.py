@@ -9,13 +9,12 @@ import codecs
 from bs4 import BeautifulSoup
 
 def main():
-    #inp = input("What is the name of the top level service you wish to search for?")
-    inp = "Not Found"
+    inp = input("What is the name of the top level service you wish to search for?")
     res = getResourcesForTopLevel(inp)
     for r in res:
         print(r)
 
-def getResourcesForTopLevel(topLevelName):
+def getResourcesForTopLevel(topLevelName):          #just call this method, it returns a list
     f = codecs.open('../data/resource.json', 'r', 'utf-8')
     resourceList = json.load(f)
     f.close()
