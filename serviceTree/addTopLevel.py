@@ -16,10 +16,15 @@ d = codecs.open('servicetree.json', 'r', 'utf-8')
 serviceList = json.load(d)
 d.close()
 
+k = codecs.open('../data/resource.json','w','utf-8')
+k.write("[")
+
 names = {}
 secondLevels = {}
 topLevels = {}
-resourceTops = {}
+newRe = {}
+newResourceList = []
+resourceTops = []
 i = 0
 
 for l in serviceList:
@@ -27,18 +32,21 @@ for l in serviceList:
     i += 1
 
 for r in resourceList:
+    resourceTops.clear()
     for s in r["services"]:
         if s != "Not Found":
             try:
-                resourceTops = serviceList[names[s]]["topLevelName"]
+                if not resourceTops.__contains__(serviceList[names[s]]["topLevelName"]):
+                    resourceTops.append(serviceList[names[s]]["topLevelName"])
             except KeyError:
-                resourceTops = "Target Demographics"
+                if not resourceTops.__contains__("Target Demographics"):
+                    resourceTops.append("Target Demographics")
+    if resourceTops.__len__() == 0:
+        resourceTops.append("Not Found")
     r["topLevelServices"] = resourceTops
-
-k = codecs.open('../data/resourceWithTopLevelName.json','w','utf-8')
-k.write("[")
-for r in resourceList:
     json.dump(r,k)
     k.write(",")
+    k.write("\n")
 k.write("]")
+k.close()
 
