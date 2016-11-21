@@ -6,14 +6,23 @@ from PyQt4.QtWebKit import QWebView
 from PyQt4.QtGui import QApplication
 from PyQt4.QtCore import QUrl
 from Provider import Provider
-#import folium      #tag for removal
+import folium      #tag for removal
 #from folium import plugins     #tag for removal
 #from Parse import Parse
 #import Curve
-import Gui
+#import Gui
+import pandas as pd
+from dataCollector import geocoder
+from osgeo import gdal, ogr, osr
+from fiona.ogrext import Iterator, ItemsIterator, KeysIterator
+from geopandas import GeoDataFrame
+gdal.VersionInfo()
 def main():
+    countyDataFrame=pd.read_pickle("data/county_GeoPandas.pickle")
+    print (countyDataFrame.head())
+    g = geocoder('../data/resource.json')
     providerCoords = Provider.addressToCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
-    #map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
+    map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
     '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
     #map.add_child(plugins.HeatMap([[providerCoords[0], providerCoords[1],500]]))
@@ -35,15 +44,7 @@ def main():
     #PopConstraint.ageConstraint("children from 8-14 years old")
 
     #pyqt GUI stuff starts here
-    app = QApplication(sys.argv)
-    Gui.
 
-
-    browser = QWebView()
-    browser.load(QUrl("tempBrowseLocal.html"))
-    browser.show()
-
-    app.exec_()
     #end pyqt GUI stuff
 #------------------------------------------------------------
 #initializeDB(string)
