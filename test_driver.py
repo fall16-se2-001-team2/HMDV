@@ -1,7 +1,7 @@
 import rasterio
 from rasterio.tools.mask import mask
 from countyHandler import countyHandler
-from providerRangeMaker import makeRange
+from providerRangeMaker import getPopulationImpacted
 
 print("start")
 print(countyHandler.get_county("cocke").nameFull)
@@ -14,7 +14,9 @@ counties.append(countyHandler.get_county("sullivan"))
 counties.append(countyHandler.get_county("washington"))
 counties.append(countyHandler.get_county("unicoi"))
 
-makeRange(-82.4725, 36.294167, 0.2, counties, "save")
+total = getPopulationImpacted(-82.4725, 36.294167, 0.2, counties, "save")
+
+print(total)
 
 """geoms = []
 #geoms.append(countyHandler.get_county("sullivan").geo)

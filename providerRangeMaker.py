@@ -1,11 +1,13 @@
 import rasterio
 from rasterio.tools.mask import mask
 from countyHandler import countyHandler
-import time
+from PIL import Image
+import numpy
 
-def makeRange(centerX, centerY, radius, counties, saveName):
+def getPopulationImpacted(centerX, centerY, radius, counties, saveName):
     makeCounties(counties, saveName)
     cutBox(centerX, centerY, radius, saveName)
+    return cutRange(saveName)
 
 def makeCounties(counties, saveName):
     geoms = []
@@ -30,7 +32,7 @@ def makeCounties(counties, saveName):
         "width": out_image.shape[2],
     "transform": out_transform})
 
-    with rasterio.open(saveName + ".tiff", "w", **out_meta) as dest:
+    with rasterio.open(saveName + ".tif", "w", **out_meta) as dest:
         dest.write(out_image)
 
 def cutBox(centerX, centerY, radius, saveName):
@@ -42,7 +44,7 @@ def cutBox(centerX, centerY, radius, saveName):
     ]]}]
 
     # load the raster, mask it by the polygon and crop it
-    with rasterio.open(saveName + ".tiff") as src:
+    with rasterio.open(saveName + ".tif") as src:
         out_image, out_transform = mask(src, box, crop=True)
     out_meta = src.meta.copy()
 
@@ -53,5 +55,34 @@ def cutBox(centerX, centerY, radius, saveName):
         "width": out_image.shape[2],
     "transform": out_transform})
 
-    with rasterio.open(saveName + "2.tiff", "w", **out_meta) as dest:
+    with rasterio.open(saveName + ".tif", "w", **out_meta) as dest:
         dest.write(out_image)
+
+def cutRange(saveName):
+    im = Image.open(saveName + ".tif")
+    #im.show()
+    imarray = numpy.array(im)
+
+
+    print(imarray.size)
+    print(imarray.shape)
+
+    total = 0
+    for x in range(0, imarray.shape[0]):
+        for y in range(0, imarray.shape[1]):
+            if imarray[x][y] > 0:
+                #print(imarray[x][y])
+                total += imarray[x][y]
+
+    return total
+
+    saveFile = Image.fromarray(imarray)
+
+
+
+
+
+
+
+
+
