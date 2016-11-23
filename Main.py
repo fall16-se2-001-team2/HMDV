@@ -14,16 +14,15 @@ import folium      #tag for removal
 import json
 import codecs
 from dataCollector import geocoder
-
+from ProviderList import ProviderList
 def main():
     #g = geocoder('../data/resource.json')
-    f = codecs.open('data/resourceLatLon.json', 'r', 'utf-8')
-    providers = json.load(f)
-    f.close()
-    providerCoords = Provider.addressToCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
+
+    providers = ProviderList('data/resource.json')
+    #providerCoords = Provider.addressToCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
     map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
 
-    for provider in providers:
+    for provider in providers.providers:
         folium.Marker([provider.longitude,provider.latitude], popup=provider.__str__()).add_to(map)
 
     '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''

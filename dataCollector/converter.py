@@ -8,7 +8,7 @@ import json
 import codecs
 
 #the file name will need to be changed to wherever you have it
-f = codecs.open('C:/Users/Matthew/resource.json', 'r', 'utf-8')
+f = codecs.open('../data/resource.json', 'r', 'utf-8')
 resourceList = json.load(f)
 f.close()
 
@@ -26,7 +26,7 @@ for resource in resourceList:
     countDict[eli] += 1
 
 #the file name will need to be changed to wherever you want it to go
-li = codecs.open('C:/Users/Matthew/listOfMultiEligibilities.txt', 'w', 'utf-8')
+li = codecs.open('../text/listOfMultiEligibilities.txt', 'w', 'utf-8')
 for eli in countDict:
     try:
         if countDict[eli] > 10:
