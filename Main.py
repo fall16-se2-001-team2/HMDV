@@ -7,33 +7,44 @@ from PyQt4.QtGui import QApplication
 from PyQt4.QtCore import QUrl
 from Provider import Provider
 import folium      #tag for removal
-#from folium import plugins     #tag for removal
+from folium import plugins     #tag for removal
 #from Parse import Parse
 #import Curve
 #import Gui
 import json
 import codecs
-from dataCollector import geocoder
+from dataCollector import Geocoder
 from ProviderList import ProviderList
+from serviceTree import AddTopLevel
+from HeatLayer import HeatLayer
 def main():
-    #g = geocoder('../data/resource.json')
-
-    providers = ProviderList('data/resource.json')
-    #providerCoords = Provider.addressToCoordinates("207 N. Boone St. Johnson City, TN 37604")		#test geocoding
+    #Parser.parseCounties("data/counties_TN.json", "leaflet/counties-tn.js")
+    #Geocoder.Geocoder.addLatLonJSON('data/resource.json','data/resourceLatLon3.json',10)
+    providersList = ProviderList('data/resourceLatLon.json',100)
+    g = Geocoder.Geocoder()
+    t = AddTopLevel.AddTopLevel()
+    for provider in providersList.providers:
+        if provider.longitude is None:  #if coords not in json file
+            latlon = g.geocode(provider)
+            provider.setLatLon (latlon[0], latlon[1])
+        if len(provider.topLevelServices) == 0: #if topLevelServices not in json file
+            tls = t.addToProvider(provider)
+            provider.topLevelServices = tls
     map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
 
-    for provider in providers.providers:
-        folium.Marker([provider.longitude,provider.latitude], popup=provider.__str__()).add_to(map)
-
+    for provider in providersList.providers:
+        folium.Marker([provider.latitude,provider.longitude], popup=str(provider)).add_to(map)
+        #map.add_child(plugins.HeatMap([[provider.latitude,provider.longitude, 1]]))
     '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
+    #providerCoords = g.geocode(Provider("Name","207 N. Boone St. Johnson City, TN 37604","eligStr",False,1.0,1.0))		#test geocoding
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
-    #map.add_child(plugins.HeatMap([[providerCoords[0], providerCoords[1],500]]))
+
 
     '''the following line is an example to place heat points for all providers from pandas'''
     #map.add_children(plugins.HeatMap([[providerCoords[0], providerCoords[1]] for name, row in morning_rush.iloc[:1000].iterrows()]))
     map.save('tempBrowseLocal.html')				#save the generated map to html
-    #import webbrowser, os.path
-    #webbrowser.open("file:///" + os.path.abspath('tempBrowseLocal.html'))  # path elaborated for Mac
+    import webbrowser, os.path
+    webbrowser.open("file:///" + os.path.abspath('tempBrowseLocal.html'))  # path elaborated for Mac
     #sqlite_file = 'research.sqlite'     # name of the sqlite database file
     #cursor = initializeDB(sqlite_file)  #cursor is pointer to db connection
     #p = Provider.fromDB(cursor)         #p -> array of providers

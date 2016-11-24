@@ -1,22 +1,15 @@
 from Provider import Provider
-import time
 
-class Parse:
-    defaultRadius = 10.0
+class HeatLayer:
+    defaultRadius = 1.0
     defaultMulti = 1.0
-    js = "var countyData = {\"type\":\"FeatureCollection\",\"features\":[{\"type\":\"Feature\",\"properties\":{\"name\":\""
+    
     def _init_(self,templateFile):
-        defaultRadius=10.0
-        defaultMulti=1.0
-        f = open(templateFile, 'r') #open the leaflet template
-        html = f.read()
-        f.close()
-        self.js += name + "\""
-
+        pass
 
 
     def toOutFile (self, dataPoints, countyJSONAddr):
-        import codecs, json
+        import codecs, json, time
         f = codecs.open(countyJSONAddr, 'r', 'utf-8')
         resourceList = json.load(f)
         f.close()

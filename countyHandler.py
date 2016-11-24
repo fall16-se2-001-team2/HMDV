@@ -4,10 +4,10 @@ import json
 
 class countyHandler:
     @staticmethod
-    def initialize():
+    def initialize():										#singleton design pattern
         try:
             if countyHandler.countiesList == None:
-                print("this should be unreachable code... weird that")
+                raise ValueError('Unreachable')
         except AttributeError:
             countyHandler.countiesList = []
             with open("data/Counties_TN.json") as f:
@@ -21,7 +21,7 @@ class countyHandler:
         for countyObj in countyHandler.countiesList:
             if( countyObj.name == name ):
                 return countyObj
-        return none
+        return None
 
 """counties = ["anderson", "bedford", "benton", "bledsoe", "blount", "bradley", "campbell",
     "cannon", "carroll", "carter", "cheatham", "chester", "claiborne", "clay",

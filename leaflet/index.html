@@ -4,16 +4,27 @@
     <meta charset="utf-8">
     <title>Leaflet Heatmap Layer Plugin</title>
     <style>
-      body, html { margin:0; padding:0; height:100%;}
-      body { font-family:sans-serif; }
-      body * { font-weight:200;}
-      h1 { position:absolute; background:white; padding:10px;}
-      #map { height:100%; }
-      .leaflet-container {
-        background: rgba(0,0,0,.8) !important;
-      }
-      h1 { position:absolute; background:black; color:white; padding:10px; font-weight:200; z-index:10000;}
-      #all-examples-info { position:absolute; background:white; font-size:16px; padding:20px; top:100px; width:350px; line-height:150%; border:1px solid rgba(0,0,0,.2);}
+	body, html { margin:0; padding:0; height:100%;}
+	body { font-family:sans-serif; }
+	body * { font-weight:200;}
+	h1 { position:absolute; background:white; padding:10px;}
+	#map { height:100%; }
+	.leaflet-container { background: rgba(0,0,0,.8) !important;
+	}
+	.info {
+		padding: 6px 8px;
+		font: 14px/16px Arial, Helvetica, sans-serif;
+		background: white;
+		background: rgba(255,255,255,0.8);
+		box-shadow: 0 0 15px rgba(0,0,0,0.2);
+		border-radius: 5px;
+	}
+	.info h4 {
+		margin: 0 0 5px;
+		color: #777;
+	}
+	h1 { position:absolute; background:black; color:white; padding:10px; font-weight:200; z-index:10000;}
+	#all-examples-info { position:absolute; background:white; font-size:16px; padding:20px; top:100px; width:350px; line-height:150%; border:1px solid rgba(0,0,0,.2);}
     </style>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
@@ -28,20 +39,38 @@
    <div id="all-examples-info">
           <strong style="font-weight:bold;line-height:200%;font-size:18px;">Looking for more examples?</strong> <br />Check out the full <a href="http://www.patrick-wied.at/static/heatmapjs/examples.html?utm_source=gh_local" target="_blank">list of all heatmap.js examples</a> with more pointers &amp; inline documentation.
         </div>
-	<script type="text/javascript" src="counties-tn.js"></script>
-
+	<script type="text/javascript" src="counties_TN.js">//import the county boundaries as countyData</script>
+	<script src="../heatData.js"></script>
     <script>
-      window.onload = function() {
-        var testData = {
-          max: 11,
-          data: [{lat: 36.6408, lng:-82.7728, count: 10, radius: 1}]
-        };
-        var baseLayer = L.tileLayer(
-          'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-            attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
-            maxZoom: 18
-          }
-        );
+      
+        var streets = L.tileLayer(
+				'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, <a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="http://cloudmade.com">CloudMade</a>',
+				maxZoom: 18
+			}),
+				grayscale = L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpandmbXliNDBjZWd2M2x6bDk3c2ZtOTkifQ._QA7i5Mpkd_m30IGElHziw', {
+				maxZoom: 18,
+				attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
+				'<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+				'Imagery © <a href="http://mapbox.com">Mapbox</a>',
+				id: 'mapbox.light'
+			});
+			
+			
+		var providers = new L.LayerGroup();
+
+		L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(providers),
+		L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(providers),
+		L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(providers),
+		L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(providers);
+	
+        var baseMaps = {
+			"Grayscale" : grayscale,
+			"Streets" : streets
+		};
+		var markerOverlay = {
+			"Providers" : providers
+		};
         var cfg = {
           "maxOpacity": .8, 
           // scales the radius based on map zoom
@@ -61,49 +90,18 @@
         var map = new L.Map('map', {
           center: new L.LatLng(25.6586, -80.3568),
           zoom: 4,
-          layers: [baseLayer, heatmapLayer]
+          layers: [grayscale, providers, heatmapLayer]
         });
-		
-		var cd = {
-	"type": "FeatureCollection",
-	"features": [{
-		"type": "Feature",
-		"properties": {
-			"name": "Benton"
-		},
-		"geometry": {
-			"type": "Polygon",
-			"coordinates": [
-				[
-					[-87.98074, 36.353307],
-					[-87.949603, 36.24316],
-					[-87.919043, 36.130049],
-					[-88.000809, 36.028089],
-					[-88.012932, 35.946648],
-					[-87.925835, 35.930432],
-					[-87.96274, 35.840921],
-					[-87.968987, 35.828827],
-					[-87.970738, 35.815705],
-					[-88.177859, 35.845841],
-					[-88.217436, 35.846582],
-					[-88.212559, 36.12029],
-					[-88.083157, 36.256724],
-					[-88.087674, 36.359166],
-					[-87.99092, 36.360133],
-					[-87.988562, 36.359746],
-					[-87.982743, 36.356083],
-					[-87.98074, 36.353307]
-				]
-			]
-		}
-	}]
-};
-		
-			L.geoJson(cd).addTo(map);	//L.geoJson("C:\Users\Isaac\PycharmProjects\research\data\leafCounties.json").addTo(map);
-        heatmapLayer.setData(testData);
+		var overlays = {
+			"Providers" : providers}
+		L.control.layers(baseMaps, overlays).addTo(map);
+        </script>
+        <script src="gui.js">//modification to the graphical front end</script>
+        <script>
+        heatmapLayer.setData(heatData);
         // make accessible for debugging
         layer = heatmapLayer;
-      };
+      
     </script>
   </body>
 </html>
