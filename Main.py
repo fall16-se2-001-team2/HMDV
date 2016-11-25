@@ -35,7 +35,7 @@ def main():
     map = Map([36.3134,-82.3534])	#initialize map centered at JC
 
     for provider in providersList.providers:
-        folium.Marker([provider.latitude,provider.longitude], popup=str(provider)).add_to(map)
+        map.Marker([provider.latitude,provider.longitude], popup=str(provider)).add_to(map)
         #map.add_child(plugins.HeatMap([[provider.latitude,provider.longitude, 1]]))
     '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
     #providerCoords = g.geocode(Provider("Name","207 N. Boone St. Johnson City, TN 37604","eligStr",False,1.0,1.0))		#test geocoding

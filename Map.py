@@ -10,11 +10,6 @@ class Map:#(object): #uncomment this to make Map a superclass
     def marker(self,location,popup):
         self.markers.append((location,popup))
 
-    def save(self,dest):
-        import codecs
-        li = codecs.open(dest, 'w', 'utf-8')
-        li.write('[')
-
     def heatDataToLeaflet(self):
         # write coordinates
         strOut = "["
@@ -27,3 +22,12 @@ class Map:#(object): #uncomment this to make Map a superclass
             strOut += ","  # else add a comma
         strOut += "]"
         return strOut
+
+    def markerToLeaflet(self):
+        for provider in self.providers:
+            "L.marker([" + provider.latitude + "," + provider.longitude + "]).bindPopup(" + provider + ").addTo(providers);"
+
+    def save(self, dest):
+        import codecs
+        li = codecs.open(dest, 'w', 'utf-8')
+        li.write('[')
