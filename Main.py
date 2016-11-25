@@ -17,10 +17,12 @@ from dataCollector import Geocoder
 from ProviderList import ProviderList
 from serviceTree import AddTopLevel
 from HeatLayer import HeatLayer
+from Map import Map
+
 def main():
     #Parser.parseCounties("data/counties_TN.json", "leaflet/counties-tn.js")
     #Geocoder.Geocoder.addLatLonJSON('data/resource.json','data/resourceLatLon3.json',10)
-    providersList = ProviderList('data/resourceLatLon.json',100)
+    providersList = ProviderList('data/resourceLatLon.json',3)
     g = Geocoder.Geocoder()
     t = AddTopLevel.AddTopLevel()
     for provider in providersList.providers:
@@ -30,7 +32,7 @@ def main():
         if len(provider.topLevelServices) == 0: #if topLevelServices not in json file
             tls = t.addToProvider(provider)
             provider.topLevelServices = tls
-    map = folium.Map(location=[36.3134,-82.3534],max_zoom=18, min_zoom=6, zoom_start=10, max_lon=-81, min_lon=-91, min_lat=34, max_lat=38)	#initialize map centered at JC
+    map = Map([36.3134,-82.3534])	#initialize map centered at JC
 
     for provider in providersList.providers:
         folium.Marker([provider.latitude,provider.longitude], popup=str(provider)).add_to(map)

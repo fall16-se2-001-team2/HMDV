@@ -1,42 +1,29 @@
 #-----------------------------------------------------------------------------
-# Map superclass contains the underlying county regions, the edge boundary of the map.
-# All measurements are in degrees. Surface object converts a map into a descrete set of points.
+# Map class is meant to replace Folium, which translates python objects into javaScript.
+# All measurements are in degrees.
 #-----------------------------------------------------------------------------
 class Map:#(object): #uncomment this to make Map a superclass
-    counties = []   #STUB array for county boundary coordinates
-    providers = []#array of Provider classes
-    #xCoordinate = 0.0   #longitude at the upper left hand corner
-    #yCoordinate = 0.0   #latitude at the upper left hand corner
-    #size = 0.0          #edge length of NxN in degrees
-    def _init_(self):
-        #spheres = [(0.0,0.0,0.0,0.0)]
-        pass
-    def populateWithCounties(self, array):
-        counties = array    #set the underlying county data in the superclass
-        pass
+    markers = []
+    def _init_(self,location):
+        self.latlon = location
 
+    def marker(self,location,popup):
+        self.markers.append((location,popup))
 
-    #STUB METHOD to parse a geoJSON file to data structure
-    def addRegion (self, boundaryCoordinates):
-        for element in boundaryCoordinates:
-            print (element)
-        pass
-    def addProvider (self, provider):
-        #xCoord = 1      #calcXoffset(x)
-        #yCoord = 1      #calcYoffset(x)
-        #radius = 1.1    #calcBoundaryFillRadius(x)
-        self.providers.append(provider)
+    def save(self,dest):
+        import codecs
+        li = codecs.open(dest, 'w', 'utf-8')
+        li.write('[')
 
-        #check the geocoding when adding a provider to a map
-
-    def toJavaScriptData (self):
-        #write coordinates
+    def heatDataToLeaflet(self):
+        # write coordinates
         strOut = "["
 
         for i, provider in self.providers:
-            i += 1                          #increment counter (1-based)
-            strOut += provider.__repr__()   #add the data structure to the string
-            if i == self.providers.count(): #if this is the last provider
-                break                       #dont add a comma after
-            strOut += ","                   #else add a comma
+            i += 1  # increment counter (1-based)
+            strOut += repr(provider)  # add the data structure to the string
+            if i == len(self.providers):  # if this is the last provider
+                break  # dont add a comma after
+            strOut += ","  # else add a comma
         strOut += "]"
+        return strOut

@@ -2,7 +2,7 @@
 #   Jarred Wininger and Matthew Humphrey
 #   09/16/2016
 #   Reads stuff from the resource.json
-
+ 
 
 import json
 import codecs
