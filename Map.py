@@ -2,32 +2,56 @@
 # Map class is meant to replace Folium, which translates python objects into javaScript.
 # All measurements are in degrees.
 #-----------------------------------------------------------------------------
-class Map:#(object): #uncomment this to make Map a superclass
-    markers = []
-    def _init_(self,location):
-        self.latlon = location
+class Map:  #36.3134,-82.3534 is JC
+    providers = []#list of tuples (lat, lon, height, radius, popup)
+    def _init_(self):
+        pass
 
-    def marker(self,location,popup):
-        self.markers.append((location,popup))
+    def addProvider(self, lat, lon, height, radius, popup):
+        self.providers.append((lat, lon, height, radius, popup))
 
-    def heatDataToLeaflet(self):
+    def heatDataToFile(self, handle):
+        handle.write('var heatData = {max: 100, data: [')
         # write coordinates
-        strOut = "["
 
-        for i, provider in self.providers:
+        for i, provider in enumerate(self.providers):
             i += 1  # increment counter (1-based)
-            strOut += repr(provider)  # add the data structure to the string
+            str(provider[3]).replace("'","&apos;")
+            handle.write("{lat: " + str(provider[0]) + ", lng: " + str(provider[1]) + ", count: " + str(provider[2]) + ", radius: " + str(provider[3]) + "}")  # add the data structure to the string
             if i == len(self.providers):  # if this is the last provider
                 break  # dont add a comma after
-            strOut += ","  # else add a comma
-        strOut += "]"
-        return strOut
+            handle.write( ",\n" ) # else add a comma
+        handle.write( "]};")
 
-    def markerToLeaflet(self):
-        for provider in self.providers:
-            "L.marker([" + provider.latitude + "," + provider.longitude + "]).bindPopup(" + provider + ").addTo(providers);"
+    #--------------------------------------------------
+    # markerToFile (handle)
+    # purpose: place markers, create popups, and bind popups to markers
+
+
+    def markersToFile(self, handle):
+        for i, provider in enumerate(self.providers):
+            i += 1  # increment counter (1-based)
+            handle.write("L.marker([" + str(provider[0]) + "," + str(provider[1]) + "]).bindPopup('" + provider[4] + "').addTo(providers)")
+            if i == len(self.providers):  # if this is the last provider
+                handle.write(";")
+            else:
+                handle.write(",\n")  # else add a comma
+
 
     def save(self, dest):
-        import codecs
-        li = codecs.open(dest, 'w', 'utf-8')
-        li.write('[')
+        import codecs, time
+        timestr = time.strftime("%Y%m%d-%H%M%S")        #set the timestamp to identify the output files
+
+        #self.html.replace("<$></$>",dataPoints)
+        #write the timestamp, research vars, demographics files, to the database for future reference.
+
+        with open("output/"+ timestr+ '.js', 'w') as li:
+            self.heatDataToFile(li)
+            self.markersToFile(li)
+
+        with open ('leaflet/index.html','r') as html:
+            with open (dest, 'w') as outhtml:
+                line = html.read()
+                if "dataPoints.js" in line:
+                    line = line.replace("dataPoints","output/"+timestr)
+                outhtml.write(line)

@@ -3,7 +3,9 @@ class Provider:
     name = ""
     address = ""
     eligibility = ""
-    isMobile = False                #boolean identifying if the provider offers mobile service
+    desc = ""
+    phone = ""
+    isShelter = False                #boolean identifying if the provider offers shelter
     #calculated attributes
     longitude = None
     latitude = None
@@ -13,6 +15,8 @@ class Provider:
     rd = 0.0                        #default radius from resourceType
     services = []
     topLevelServices = []
+    isMobile = False                #boolean identifying if the provider offers mobile service
+    jsonObj = None                  #data structure so the program can output the complete resource file
     #regions = []                    #list of pointers to regions impacted by this provider
     #population = []                 #list of population constraints
     #-----------------------------------
@@ -25,6 +29,8 @@ class Provider:
         self.address = jsonObj["address"]
         self.eligibility = jsonObj["eligibility"]
         self.services = jsonObj["services"]
+        self.desc = jsonObj["description"]
+        self.phone = jsonObj["phone"]
         if "topLevelServices" in jsonObj:
             self.topLevelServices = jsonObj["topLevelServices"]
         if "longitude" in jsonObj:      #check to see if previously geocoded
@@ -61,9 +67,6 @@ class Provider:
     # repr()
     # Purpose:describe the provider uniquely in JSON notation.
     # -------------------------------------------------------------
-    def __repr__(self):
-        #sample: {lat: 24.6408, lng:46.7728, count: 3, radius: 1.134 }
-        strOut = "{lat: " + self.latitude + ", lng: " + self.longitude + ", count: " + self.height + + ", radius: " + self.ru + "}"
-        return strOut
+
     def __str__(self):
         return self.name

@@ -2,6 +2,4 @@
 idea/vcs.xml
 __pycache__
 tempBrowseLocal.html
-tempBrowse/heatData.js
-tempBrowse/tempBrowseLocal.html
-tempBrowse/counties_TN.js
+output

@@ -28,8 +28,8 @@
     </style>
     <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
     <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
-    <script src="heatmap.js"></script>
-    <script src="leaflet-heatmap.js"></script>
+    <script src="leaflet/heatmap.js"></script>
+    <script src="leaflet/leaflet-heatmap.js"></script>
   </head>
   <body>
    <h1>Leaflet Heatmap Layer Example</h1>
@@ -39,8 +39,9 @@
    <div id="all-examples-info">
           <strong style="font-weight:bold;line-height:200%;font-size:18px;">Looking for more examples?</strong> <br />Check out the full <a href="http://www.patrick-wied.at/static/heatmapjs/examples.html?utm_source=gh_local" target="_blank">list of all heatmap.js examples</a> with more pointers &amp; inline documentation.
         </div>
-	<script type="text/javascript" src="counties_TN.js">//import the county boundaries as countyData</script>
-	<script src="../heatData.js"></script>
+	<script type="text/javascript" src="leaflet/counties_TN.js">//import the county boundaries as countyData</script>
+	<script  type="text/javascript">var providers = new L.LayerGroup();</script>
+	<script src="dataPoints.js"></script>
     <script>
       
         var streets = L.tileLayer(
@@ -57,13 +58,7 @@
 			});
 			
 			
-		var providers = new L.LayerGroup();
 
-		L.marker([39.61, -105.02]).bindPopup('This is Littleton, CO.').addTo(providers),
-		L.marker([39.74, -104.99]).bindPopup('This is Denver, CO.').addTo(providers),
-		L.marker([39.73, -104.8]).bindPopup('This is Aurora, CO.').addTo(providers),
-		L.marker([39.77, -105.23]).bindPopup('This is Golden, CO.').addTo(providers);
-	
         var baseMaps = {
 			"Grayscale" : grayscale,
 			"Streets" : streets
@@ -96,7 +91,7 @@
 			"Providers" : providers}
 		L.control.layers(baseMaps, overlays).addTo(map);
         </script>
-        <script src="gui.js">//modification to the graphical front end</script>
+        <script src="leaflet/gui.js">//modification to the graphical front end</script>
         <script>
         heatmapLayer.setData(heatData);
         // make accessible for debugging

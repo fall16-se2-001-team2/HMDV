@@ -22,7 +22,7 @@ from Map import Map
 def main():
     #Parser.parseCounties("data/counties_TN.json", "leaflet/counties-tn.js")
     #Geocoder.Geocoder.addLatLonJSON('data/resource.json','data/resourceLatLon3.json',10)
-    providersList = ProviderList('data/resourceLatLon.json',3)
+    providersList = ProviderList('data/resourceLatLon.json',100)
     g = Geocoder.Geocoder()
     t = AddTopLevel.AddTopLevel()
     for provider in providersList.providers:
@@ -32,17 +32,14 @@ def main():
         if len(provider.topLevelServices) == 0: #if topLevelServices not in json file
             tls = t.addToProvider(provider)
             provider.topLevelServices = tls
-    map = Map([36.3134,-82.3534])	#initialize map centered at JC
+    map = Map()	#initialize map centered at JC
 
     for provider in providersList.providers:
-        map.Marker([provider.latitude,provider.longitude], popup=str(provider)).add_to(map)
-        #map.add_child(plugins.HeatMap([[provider.latitude,provider.longitude, 1]]))
-    '''The webscraper did not parse this particular provider's address correctly. line 95 in resource.json'''
-    #providerCoords = g.geocode(Provider("Name","207 N. Boone St. Johnson City, TN 37604","eligStr",False,1.0,1.0))		#test geocoding
+        map.addProvider(provider.latitude, provider.longitude, 100,0.5, str(provider))
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
 
 
-    '''the following line is an example to place heat points for all providers from pandas'''
+    '''the following line is an example using folium to place heat points for all providers from pandas'''
     #map.add_children(plugins.HeatMap([[providerCoords[0], providerCoords[1]] for name, row in morning_rush.iloc[:1000].iterrows()]))
     map.save('tempBrowseLocal.html')				#save the generated map to html
     import webbrowser, os.path
