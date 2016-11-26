@@ -37,7 +37,7 @@ class Provider:
             self.longitude = jsonObj["longitude"]
             self.latitude = jsonObj["latitude"]
         if "ru" in jsonObj:
-            self.ru = jsonObj["ru"]
+            self.ru = float(jsonObj["ru"])
     # ------------------------------------------------------------
     # Provider(string, string, string, string, string, string, string, float, float, bool)
     # Purpose: initialize a provider with minimal information

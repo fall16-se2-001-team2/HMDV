@@ -5,9 +5,7 @@ import sys  #qtPy dependencies
 from PyQt4.QtWebKit import QWebView
 from PyQt4.QtGui import QApplication
 from PyQt4.QtCore import QUrl
-from Provider import Provider
-import folium      #tag for removal
-from folium import plugins     #tag for removal
+#from Provider import Provider
 #from Parse import Parse
 #import Curve
 #import Gui
@@ -16,13 +14,12 @@ import codecs
 from dataCollector import Geocoder
 from ProviderList import ProviderList
 from serviceTree import AddTopLevel
-from HeatLayer import HeatLayer
 from Map import Map
 
 def main():
     #Parser.parseCounties("data/counties_TN.json", "leaflet/counties-tn.js")
     #Geocoder.Geocoder.addLatLonJSON('data/resource.json','data/resourceLatLon3.json',10)
-    providersList = ProviderList('data/resourceLatLon.json',100)
+    providersList = ProviderList('data/resourceLatLon.json',1000)
     g = Geocoder.Geocoder()
     t = AddTopLevel.AddTopLevel()
     for provider in providersList.providers:
@@ -35,7 +32,11 @@ def main():
     map = Map()	#initialize map centered at JC
 
     for provider in providersList.providers:
-        map.addProvider(provider.latitude, provider.longitude, 100,0.5, str(provider))
+        if provider.ru > 0:
+            map.addProvider(provider.latitude, provider.longitude, 18,provider.ru, str(provider))
+        else:
+            map.addProvider(provider.latitude, provider.longitude, 15,.2, str(provider))
+
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
 
 
