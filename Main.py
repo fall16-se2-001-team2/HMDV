@@ -1,46 +1,35 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #import sqlite3
-import sys  #qtPy dependencies
+import sys  #pyQt dependencies
 from PyQt4.QtWebKit import QWebView
 from PyQt4.QtGui import QApplication
 from PyQt4.QtCore import QUrl
-#from Provider import Provider
-#from Parse import Parse
-#import Curve
+#from Parse import Parse        #for scripting
 #import Gui
-import json
-import codecs
-from dataCollector import Geocoder
+#import json
+#import codecs
 from ProviderList import ProviderList
-from serviceTree import AddTopLevel
+from serviceTree import getTopLevelNames
 from Map import Map
 
 def main():
     #Parser.parseCounties("data/counties_TN.json", "leaflet/counties-tn.js")
     #Geocoder.Geocoder.addLatLonJSON('data/resource.json','data/resourceLatLon3.json',10)
-    providersList = ProviderList('data/resourceLatLon.json',1000)
-    g = Geocoder.Geocoder()
-    t = AddTopLevel.AddTopLevel()
-    for provider in providersList.providers:
-        if provider.longitude is None:  #if coords not in json file
-            latlon = g.geocode(provider)
-            provider.setLatLon (latlon[0], latlon[1])
-        if len(provider.topLevelServices) == 0: #if topLevelServices not in json file
-            tls = t.addToProvider(provider)
-            provider.topLevelServices = tls
+
+    topLevels = getTopLevelNames.getTopLevelNames('serviceTree/servicetree.json')
+
+    providersList = ProviderList('data/resourceLatLon.json',topLevels[0], 25, 1000)
+
     map = Map()	#initialize map centered at JC
 
     for provider in providersList.providers:
-        if provider.ru > 0:
-            map.addProvider(provider.latitude, provider.longitude, 18,provider.ru, str(provider))
-        else:
-            map.addProvider(provider.latitude, provider.longitude, 15,.2, str(provider))
+        map.addProvider(provider.latitude, provider.longitude, 18,provider.getRadius(), str(provider))
 
     #folium.Marker(providerCoords, popup='ADRC (Aging, Disability, Resource Connections) - Johnson City').add_to(map)
 
 
-    '''the following line is an example using folium to place heat points for all providers from pandas'''
+    '''the following line is an example using pandas iterable arrays to place heat points in Folium'''
     #map.add_children(plugins.HeatMap([[providerCoords[0], providerCoords[1]] for name, row in morning_rush.iloc[:1000].iterrows()]))
     map.save('tempBrowseLocal.html')				#save the generated map to html
     import webbrowser, os.path

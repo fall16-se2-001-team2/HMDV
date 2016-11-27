@@ -1,6 +1,7 @@
 #-----------------------------------------------------------------------------
 # Map class is meant to replace Folium, which translates python objects into javaScript.
 # All measurements are in degrees.
+#
 #-----------------------------------------------------------------------------
 class Map:  #36.3134,-82.3534 is JC
     providers = []#list of tuples (lat, lon, height, radius, popup)
@@ -22,10 +23,10 @@ class Map:  #36.3134,-82.3534 is JC
             handle.write( ",\n" ) # else add a comma
         handle.write( "]};")
 
-    #--------------------------------------------------
+    #------------------------------------------------------------------
     # markerToFile (handle)
     # purpose: place markers, create popups, and bind popups to markers
-
+    #------------------------------------------------------------------
 
     def markersToFile(self, handle):
         for i, provider in enumerate(self.providers):
@@ -41,8 +42,7 @@ class Map:  #36.3134,-82.3534 is JC
         import codecs, time
         timestr = time.strftime("%Y%m%d-%H%M%S")        #set the timestamp to identify the output files
 
-        #self.html.replace("<$></$>",dataPoints)
-        #write the timestamp, research vars, demographics files, to the database for future reference.
+        #write the timestamp, research vars, and pointers to demographics files to the database for future reference.
 
         with open("output/"+ timestr+ '.js', 'w') as li:    #write out the dataset to javascript file
             self.heatDataToFile(li)

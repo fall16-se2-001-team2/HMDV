@@ -5,20 +5,20 @@ class Provider:
     eligibility = ""
     desc = ""
     phone = ""
-    isShelter = False                #boolean identifying if the provider offers shelter
+    isShelter = False                   #boolean identifying if the provider offers shelter
     #calculated attributes
     longitude = None
     latitude = None
-    h = 100                           #the relative height of the provider; type int(0,100)
-    ru = 0.0                        #unique radius. NOTE this is in DEGREES
-    #fu = 0.0                        #unique fade (0-1] from provider
-    rd = 0.0                        #default radius from resourceType
-    services = []
-    topLevelServices = []
-    isMobile = False                #boolean identifying if the provider offers mobile service
-    jsonObj = None                  #data structure so the program can output the complete resource file
-    #regions = []                    #list of pointers to regions impacted by this provider
-    #population = []                 #list of population constraints
+    numOfPeople = 0                     #calculated number of people close and eligible for services
+    #h = 100                            #the relative height of the provider; type int(0,100)
+    ru = 0.0                            #unique radius. NOTE this is in DEGREES
+    #fu = 0.0                           #unique fade (0-1] from provider
+    services = []                       #low level services offered
+    topLevelServices = []               #general categories of services determined by serviceTree
+    isMobile = False                    #boolean identifying if the provider offers mobile service. True indicates 0 fade for service area. *NOT IMPLEMENTED*
+    jsonObj = None                      #data structure so the program can output the completed resource file *PROGRAM DOESN'T OUTPUT JSON FILE*
+    #regions = []                       #list of pointers to regions impacted by this provider
+    #population = []                    #list of population constraints
     #-----------------------------------
     # Provider(jsonObj)
     # Purpose: initialize from JSON file
@@ -31,12 +31,14 @@ class Provider:
         self.services = jsonObj["services"]
         self.desc = jsonObj["description"]
         self.phone = jsonObj["phone"]
+        if jsonObj["shelter"] == "Yes":
+            self.isShelter = True
         if "topLevelServices" in jsonObj:
             self.topLevelServices = jsonObj["topLevelServices"]
         if "longitude" in jsonObj:      #check to see if previously geocoded
             self.longitude = jsonObj["longitude"]
             self.latitude = jsonObj["latitude"]
-        if "ru" in jsonObj:
+        if "ru" in jsonObj:             #check for unique radius in resource file
             self.ru = float(jsonObj["ru"])
     # ------------------------------------------------------------
     # Provider(string, string, string, string, string, string, string, float, float, bool)
@@ -60,13 +62,25 @@ class Provider:
         self.isMobile = isMobile
         self.ru = radius                # optional parameters unique radius and fade
         self.fu = fade"""
+
     def setLatLon (self, lat, lon):
         self.latitude = lat
         self.longitude = lon
-    # ------------------------------------------------------------
-    # repr()
-    # Purpose:describe the provider uniquely in JSON notation.
-    # -------------------------------------------------------------
+
+    def getRadius (self):
+        if self.ru > 0:     # if unique radius defined, return that
+            return self.ru
+        else:               #else return default
+            return None
+
 
     def __str__(self):
-        return self.name
+        serv = ""
+        for i,s in enumerate(self.services):
+            i += 1
+            serv += s
+            if i == len(self.services):
+                break
+            else:
+                serv += ", "
+        return "<h3>"+ self.name + "</h3><p>Services: "+serv+"</p><p>Phone:" + self.phone + "</p>"

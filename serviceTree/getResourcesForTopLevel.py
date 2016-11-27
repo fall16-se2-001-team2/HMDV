@@ -2,11 +2,11 @@
 """
 @author: Matthew Humphrey
 """
-import requests
-import re
+#import requests
+#import re
 import json
 import codecs
-from bs4 import BeautifulSoup
+#from bs4 import BeautifulSoup
 
 def main():
     inp = input("What is the name of the top level service you wish to search for?")
@@ -14,15 +14,15 @@ def main():
     for r in res:
         print(r)
 
-def getResourcesForTopLevel(topLevelName):          #just call this method, it returns a list
-    f = codecs.open('../data/resource.json', 'r', 'utf-8')
+def getResourcesForTopLevel(fileName, topLevelService):          #just call this method, it returns a list
+    f = codecs.open(fileName, 'r', 'utf-8')
     resourceList = json.load(f)
     f.close()
 
     resources = []
 
     for r in resourceList:
-        if r["topLevelServices"].__contains__(topLevelName):
+        if r["topLevelServices"].__contains__(topLevelService):
             resources.append(r)
 
     #k = codecs.open('../data/resourceOf#ServiceType#.json','w','utf-8')

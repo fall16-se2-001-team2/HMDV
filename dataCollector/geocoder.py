@@ -18,8 +18,8 @@ class Geocoder:
     # geocode(string, int)
     # purpose:append lat and lon to a provider class
     #---------------------------------------------------
-    def geocode (self, provider):
-        place, (lat, lon) = self.g.geocode(provider.address)      #place is not necessary
+    def geocode (self, address):
+        place, (lat, lon) = self.g.geocode(address)      #returns tuple:(place, lat, lon)
         return lat, lon
     '''addLatLonJSON is a script to add lat and lon to a whole JSON file.'''
     @staticmethod
