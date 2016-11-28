@@ -1,8 +1,38 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Jacob Gantt
+# Department Name : Computer and Information Sciences
+# File Name                :providerRangeMaker.py
+# Purpose                  :Takes provider and coordinates and returns number of people in service area
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Nov 20, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 28, 2016
+# Modified By		: Jacob Gantt
+#
+#-------------------------------------------------------------------------------------------------------------
+
+
 import rasterio
 from rasterio.tools.mask import mask
 from countyHandler import countyHandler
 from PIL import Image
 import numpy
+
+def addPeopleServed(providers):
+    for provider in providers:
+        provider.numOfPeople = getPopulationImpacted(
+            provider.latitude,
+            provider.longitude,
+            provider.ru,
+            provider.regions, 
+            "tempFile")
 
 def getPopulationImpacted(centerX, centerY, radius, counties, saveName):
     makeCounties(counties, saveName)
