@@ -51,6 +51,12 @@ class Ui_MainWindow(object):
         self.RadiusEntry1Obj.setGeometry(QtCore.QRect(460, 30, 113, 20))
         self.RadiusEntry1Obj.setObjectName(_fromUtf8("RadiusEntry1Obj"))
 
+        #Space for Dropdown List
+        self.dropDownList = QtGui.QComboBox(MainWindow)
+        self.dropDownList.setGeometry(QtCore.QRect(460, 75, 113, 20))
+        self.dropDownList.addItems(topLevels)
+
+
         #Sizing
         self.label = QtGui.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(390, 20, 91, 31))
@@ -67,6 +73,7 @@ class Ui_MainWindow(object):
         self.ExitProgramObj.raise_()
         self.textBrowser.raise_()
         self.RadiusEntry1Obj.raise_()
+        self.dropDownList.raise_()
         self.label.raise_()
         self.GenerateMapObj.raise_()
 
@@ -86,6 +93,13 @@ class Ui_MainWindow(object):
         self.retranslateUi(MainWindow,topLevels)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
+    def handleOpenMap(self):
+        mapSelection = self.dropDownList.currentText()
+        raidusSelection = self.RadiusEntry1Obj.selectedText()
+        #return (mapSelection, raidusSelection)
+
+
+
     def retranslateUi(self, MainWindow, topLevels):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
         self.ExitProgramObj.setText(_translate("MainWindow", "Exit", None))
@@ -102,8 +116,7 @@ class Ui_MainWindow(object):
 
     #attempting to define Button handler classes to open Gui_0_02-2 as seen http://stackoverflow.com/questions/27567208/how-do-i-open-sub-window-after-i-click-on-button-on-main-screen-in-pyqt4
 
-    def handleOpenMap(self):
-        Ui_MapWindow.showMap(self)
+
 
 
 
@@ -111,12 +124,15 @@ class Ui_MainWindow(object):
         sys.exit()
 
 
-def start(topLevels):
-    import sys
-    app = QtGui.QApplication(sys.argv)
-    MainWindow = QtGui.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow, topLevels)
-    MainWindow.show()
-    sys.exit(app.exec_())
+    def start(topLevels):
+        import sys
+        app = QtGui.QApplication(sys.argv)
+        MainWindow = QtGui.QMainWindow()
+        ui = Ui_MainWindow()
+        ui.setupUi(MainWindow, topLevels)
+        MainWindow.show()
+        sys.exit(app.exec_())
+        #app.exec_()
+        return (mapSelection, raidusSelection)
+
 
