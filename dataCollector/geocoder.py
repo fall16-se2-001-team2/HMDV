@@ -1,13 +1,24 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-#   Matthew Humphrey / Isaac Styles
-#   10/30/2016 
-#   Adds longitude and latitude to the resource.json
-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Matthew Humphrey
+# Department Name : Computer and Information Sciences
+# File Name                :Geocoder.py
+# Purpose                  :query google maps api with an address, and return latitude and longitude
+#
+# Author			        : Isaac Styles, styles@etsu.edu
+# Create Date	            : 10/30/2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 27, 2016
+# Modified By		: Isaac Styles
+#
+#-------------------------------------------------------------------------------------------------------------
 import json
 import codecs
-#import Provider
 from geopy import geocoders
-#import pandas
 
 class Geocoder:
     api_key="AIzaSyBHJYku7O6cGgMNVL3nXo9dPB0EkgMVlXM" # gmaps api key for ETSU Computing Dept. listed under styles@etsu.edu (Isaac Styles)
