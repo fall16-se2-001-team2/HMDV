@@ -1,3 +1,23 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Jacob Gantt
+# Department Name : Computer and Information Sciences
+# File Name                :regionConstraint.py
+# Purpose                  :Parse eligibility text for counties and cities
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Oct 24, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 28, 2016
+# Modified By		: Jacob Gantt
+#
+#-------------------------------------------------------------------------------------------------------------
+
 from collections import namedtuple
 import string
 
@@ -188,27 +208,6 @@ class RegionsConstraint:
                                 for k in range( len(maybeCitySplit) ):
                                     eligWords[i+k] = ""
         return cities
-
-#inputArray = []
-#newRecord = True
-#with open("/home/jacob/python/textToIdea/listOfEligibilities.txt") as f:
-#    for line in f:
-#        if(line=="\n"):
-#            newRecord = True
-#        if(line[0:6]!="******"and
-#            line!="Eligibility description\n" and
-#            line!="Count: ###\n" and
-#            line!="[Last resoure name with this eligbility]\n" and
-#            line!="\n" and
-#            line[0]!="[" and
-#            line[0:6]!="Count:"
-#        ):
-#            if(newRecord):
-#                inputArray.append(line)
-#                newRecord = False
-#            else:
-#                inputArray[len(inputArray)-1] = inputArray[len(inputArray)-1] + line
-
 
 inputArray = [
     "Washington, Hawkins, Van Buren, and Carter county residents ages 18 to 25.",

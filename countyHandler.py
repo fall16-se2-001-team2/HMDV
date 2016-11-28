@@ -1,3 +1,24 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Jacob Gantt
+# Department Name : Computer and Information Sciences
+# File Name                :test_driver.py
+# Purpose                  :Handles county objects so that they are each singletons
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Nov 14, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 28, 2016
+# Modified By		: Jacob Gantt
+#
+#-------------------------------------------------------------------------------------------------------------
+
+
 import sys
 from county import county
 import json
@@ -10,7 +31,7 @@ class countyHandler:
                 raise ValueError('Unreachable')
         except AttributeError:
             countyHandler.countiesList = []
-            with open("data/Counties_TN.json") as f:
+            with open("data/Counties_TN_single_lines.json") as f:
                 for line in f:
                     data = json.loads(line)
                     countyHandler.countiesList.append( county(data) )

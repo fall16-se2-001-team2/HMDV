@@ -1,13 +1,34 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Jacob Gantt
+# Department Name : Computer and Information Sciences
+# File Name                :test_driver.py
+# Purpose                  :Tests functionality of countyHandler and providerRangeMaker
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Nov 14, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 28, 2016
+# Modified By		: Jacob Gantt
+#
+#-------------------------------------------------------------------------------------------------------------
+
+
 import rasterio
 from rasterio.tools.mask import mask
 from countyHandler import countyHandler
 from providerRangeMaker import getPopulationImpacted
+from ProviderList import ProviderList
 
 print("start")
 print(countyHandler.get_county("cocke").nameFull)
 print(countyHandler.get_county("washington").nameFull)
 print(countyHandler.get_county("van buren").nameFull)
-print("end")
 
 counties = []
 counties.append(countyHandler.get_county("sullivan"))
@@ -18,24 +39,8 @@ total = getPopulationImpacted(-82.4725, 36.294167, 0.2, counties, "save")
 
 print(total)
 
-"""geoms = []
-#geoms.append(countyHandler.get_county("sullivan").geo)
-geoms.append(countyHandler.get_county("washington").geo)
-geoms.append(countyHandler.get_county("unicoi").geo)
+providersList = ProviderList('data/resourceLatLon.json',topLevels[0], 25, 1000)
 
+print( providersList[0].name )
 
-# load the raster, mask it by the polygon and crop it
-with rasterio.open("/home/jacob/python/SeiiData/gpw-v4-population-density_2015.tif") as src:
-    out_image, out_transform = mask(src, geoms, crop=True)
-out_meta = src.meta.copy()
-
-# save the resulting raster  
-out_meta.update({"driver": "GTiff",
-    "height": out_image.shape[1],
-    "width": out_image.shape[2],
-"transform": out_transform})
-
-with rasterio.open("masked.tif", "w", **out_meta) as dest:
-    dest.write(out_image)"""
-
-
+print("end")
