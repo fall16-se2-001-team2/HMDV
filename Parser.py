@@ -1,24 +1,9 @@
-#!/usr/bin/python
-# -*- coding: utf-8 -*-
-#-------------------------------------------------------------------------------------------------------------
-#
-# Name                     :Isaac Styles
-# Department Name : Computer and Information Sciences
-# File Name                :Parser.py
-# Purpose                  :convert a typical geoJSON into one accepted by leaflet and encapsulate it in a javaScript file.
-#
-#
-# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
-#                                   Product Owner: Isaac Styles (styles@etsu.edu
-# Create Date	            : Sept 10, 2016
-#
-#-----------------------------------------------------------------------------------------------------------
-#
-# Modified Date	: Nov 27, 2016
-# Modified By		: Isaac Styles
-#
-#-------------------------------------------------------------------------------------------------------------
 class Parser:
+    #--------------------------------------------------------------------
+    # parseCounties - static
+    # Purpose: convert a typical geoJSON into one accepted by leaflet,
+    #          and encapsulate it in a javaScript file.
+    #--------------------------------------------------------------------
     @staticmethod
     def parseCounties(countyJSONSource="data/counties_TN.json", dest="leaflet/counties_TN.js"):
         js = "var countyData = {\"type\":\"FeatureCollection\",\"features\":["
