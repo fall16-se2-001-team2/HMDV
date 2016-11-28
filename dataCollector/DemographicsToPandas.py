@@ -1,3 +1,23 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :jarred Wininger
+# Department Name : Computer and Information Sciences
+# File Name                :DemographicsToPandas.py
+# Purpose                  :imports the counties geometry into a pandas data structure
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Nov 14, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 28, 2016
+# Modified By		: Jarred Wininger
+#
+#-------------------------------------------------------------------------------------------------------------
+
 from geopandas import GeoDataFrame
 import json
 import geojson

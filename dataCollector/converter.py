@@ -1,8 +1,23 @@
+#!/usr/bin/python
 # -*- coding: utf-8 -*-
-#   Jarred Wininger and Matthew Humphrey
-#   09/16/2016
-#   Reads stuff from the resource.json
- 
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Matthew Humphrey and Jarred Wininger
+# Department Name : Computer and Information Sciences
+# File Name                :Converter.py
+# Purpose                  :outputs a list of the most common eligibility strings, sorted by prevalence.
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : September 16, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Sept 16, 2016
+# Modified By		: Matthew Humphrey and Jarred Wininger
+#
+#-------------------------------------------------------------------------------------------------------------
+
 
 import json
 import codecs
