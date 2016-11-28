@@ -1,4 +1,23 @@
-
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Isaac Styles
+# Department Name : Computer and Information Sciences
+# File Name                :PopConstraint.py
+# Purpose                  :parse the eligibility string for words and integers signifying an age constraint.
+#
+#
+# Author			        : Team Pandas, github.com/fall16-se2-001-team2/HMDV
+#                                   Product Owner: Isaac Styles (styles@etsu.edu
+# Create Date	            : Oct. 1, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 27, 2016
+# Modified By		: Isaac Styles
+#
+#-------------------------------------------------------------------------------------------------------------
 class PopConstraint:
 
     string = ""
