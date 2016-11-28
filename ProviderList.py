@@ -44,7 +44,7 @@ class ProviderList:
 
 
             if provider.getRadius() == None:
-                provider.ru = defaultRadiusInMiles / 69.0      #convert to degrees. there are approximately 69 miles in 1 degree latitude.
+                provider.ru = float(defaultRadiusInMiles) / 69.0      #convert to degrees. there are approximately 69 miles in 1 degree latitude.
             self.providers.append(provider)
             tally += 1
             if tally == count:
