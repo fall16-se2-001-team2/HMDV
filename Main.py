@@ -152,12 +152,12 @@ def gui():
                                                 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
                                                 "p, li { white-space: pre-wrap; }\n"
                                                 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-                                                "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:8pt;\">ETSU Social Work Department<br /><br /></p><p>To generate a map, enter a default radius and select the type of service. Click &quot;Generate Map&quot; to continue.</span></p><p><img src=panda.jpg>Team Pandas</p></body></html>",
+                                                "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:10pt;\"><b>ETSU Social Work Department</b><br /><br /></p><p>To generate a map, enter a default radius and select the type of service. Click &quot;Generate Map&quot; to continue.</span></p><p><img src=panda.jpg><i>Team Pandas</i></p></body></html>",
                                                 None))
             self.RadiusEntry1Obj.setText(_translate("MainWindow", "25", None))
             self.label.setText(_translate("MainWindow", "Radius (mi.)", None))
             self.GenerateMapObj.setText(_translate("MainWindow", "Generate Map", None))
-            self.menuMap_View_Vers_0_01.setTitle(_translate("MainWindow", "Map Maker v.1.0", None))
+            self.menuMap_View_Vers_0_01.setTitle(_translate("MainWindow", "Mapper v.1.0", None))
 
         def close_application(self):
             sys.exit()
