@@ -1,9 +1,26 @@
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Isaac Styles
+# Department Name : Computer and Information Sciences
+# File Name                :Provider.py
+# Purpose                  :store and parse a service provider from a JSON resource file.
+#                            output an html formatted string of name, services, phone, and # of people impacted.
+#
+# Author			        : Isaac Styles, styles@etsu.edu
+# Create Date	            : Sept 14, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 27, 2016
+# Modified By		: Isaac Styles
+#
+#-------------------------------------------------------------------------------------------------------------
 class Provider:
     #parsed attributes
     name = ""
     address = ""
     eligibility = ""
-    desc = ""
+    #desc = ""
     phone = ""
     isShelter = False                   #boolean identifying if the provider offers shelter
     #calculated attributes
@@ -29,7 +46,7 @@ class Provider:
         self.address = jsonObj["address"]
         self.eligibility = jsonObj["eligibility"]
         self.services = jsonObj["services"]
-        self.desc = jsonObj["description"]
+        #self.desc = jsonObj["description"]
         self.phone = jsonObj["phone"]
         if jsonObj["shelter"] == "Yes":
             self.isShelter = True
@@ -70,7 +87,7 @@ class Provider:
     def getRadius (self):
         if self.ru > 0:     # if unique radius defined, return that
             return self.ru
-        else:               #else return default
+        else:
             return None
 
 

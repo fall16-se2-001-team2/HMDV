@@ -8,7 +8,7 @@
 
 from PyQt4 import QtCore, QtGui
 from MapWindow import Ui_MapWindow
-
+import sys
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
@@ -24,7 +24,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow, topLevels):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(792, 600)
         self.centralwidget = QtGui.QWidget(MainWindow)
@@ -76,19 +76,19 @@ class Ui_MainWindow(object):
         self.menubar.setGeometry(QtCore.QRect(0, 0, 792, 21))
         self.menubar.setObjectName(_fromUtf8("menubar"))
         self.menuMap_View_Vers_0_01 = QtGui.QMenu(self.menubar)
-        self.menuMap_View_Vers_0_01.setObjectName(_fromUtf8("menuMap_View_Vers_0_01"))
+        self.menuMap_View_Vers_0_01.setObjectName(_fromUtf8("Service Map Generator v.1.0"))
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtGui.QStatusBar(MainWindow)
         self.statusbar.setObjectName(_fromUtf8("statusbar"))
         MainWindow.setStatusBar(self.statusbar)
         self.menubar.addAction(self.menuMap_View_Vers_0_01.menuAction())
 
-        self.retranslateUi(MainWindow)
+        self.retranslateUi(MainWindow,topLevels)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow, topLevels):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
-        self.ExitProgramObj.setText(_translate("MainWindow", "Exit Program", None))
+        self.ExitProgramObj.setText(_translate("MainWindow", "Exit", None))
         self.textBrowser.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
@@ -111,12 +111,12 @@ class Ui_MainWindow(object):
         sys.exit()
 
 
-if __name__ == "__main__":
+def start(topLevels):
     import sys
     app = QtGui.QApplication(sys.argv)
     MainWindow = QtGui.QMainWindow()
     ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
+    ui.setupUi(MainWindow, topLevels)
     MainWindow.show()
     sys.exit(app.exec_())
 
