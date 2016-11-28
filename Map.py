@@ -1,13 +1,26 @@
-#-----------------------------------------------------------------------------
-# Map class is meant to replace Folium, which translates python objects into javaScript.
-# All measurements are in degrees.
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
 #
-#-----------------------------------------------------------------------------
+# Name                     :Isaac Styles
+# Department Name : Computer and Information Sciences
+# File Name                :Map.py
+# Purpose                  :Map class is meant to replace Folium, which translates python objects into javaScript.
+#                            All measurements are in degrees.
+#
+# Author			        : Isaac Styles, styles@etsu.edu
+# Create Date	            : Sept 14, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 27, 2016
+# Modified By		: Isaac Styles
+#
+#-------------------------------------------------------------------------------------------------------------
 class Map:  #36.3134,-82.3534 is JC
     providers = []#list of tuples (lat, lon, height, radius, popup)
-    def _init_(self):
-        pass
-
+    def __init__(self,serviceName):
+        self.serviceName = serviceName
     def addProvider(self, lat, lon, height, radius, popup):
         self.providers.append((lat, lon, height, radius, popup))
 
@@ -17,7 +30,11 @@ class Map:  #36.3134,-82.3534 is JC
 
         for i, provider in enumerate(self.providers):
             i += 1  # increment counter (1-based)
-            handle.write("{lat: " + str(provider[0]) + ", lng: " + str(provider[1]) + ", count: " + str(provider[2]) + ", radius: " + str(provider[3]) + "}")  # add the data structure to the string
+            handle.write("{lat: " + str(provider[0])
+                         + ", lng: " + str(provider[1])
+                         + ", count: " + str(provider[2])
+                         + ", radius: " + str(provider[3])
+                         + "}")  # add the data structure to the string
             if i == len(self.providers):  # if this is the last provider
                 break  # dont add a comma after
             handle.write( ",\n" ) # else add a comma
@@ -52,5 +69,6 @@ class Map:  #36.3134,-82.3534 is JC
             with open (dest, 'w') as outhtml:               #and write the file to the temporary location for display
                 line = html.read()
                 #if "dataPoints.js" in line:
+                line = line.replace("TitleTitleTitle",self.serviceName)
                 line = line.replace("dataPoints","output/"+timestr)
                 outhtml.write(line)

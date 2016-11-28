@@ -1,3 +1,22 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#-------------------------------------------------------------------------------------------------------------
+#
+# Name                     :Isaac Styles
+# Department Name : Computer and Information Sciences
+# File Name                :ProviderList.py
+# Purpose                  :encapsulate a list of providers, ensuring that they contain lat, lon,
+#                            and topLevelService. If a unique radius is defined, ru is set.
+#                               It also does the conversion from miles to degrees.
+# Author			        : Isaac Styles, styles@etsu.edu
+# Create Date	            : Sept 28, 2016
+#
+#-----------------------------------------------------------------------------------------------------------
+#
+# Modified Date	: Nov 27, 2016
+# Modified By		: Isaac Styles
+#
+#-------------------------------------------------------------------------------------------------------------
 import codecs
 import json
 from Provider import Provider
