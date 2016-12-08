@@ -140,6 +140,7 @@ def gui():
         # ------------------------------------------------------------
         def handleOpenMap(self):
             produceMap(self.dropDownList.currentText(), self.RadiusEntry1Obj.text())
+            sys.exit()
         # ------------------------------------------------------------
         # retranslateUi()
         # purpose: modifies the GUI objects once they're created
